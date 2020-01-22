@@ -35,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
         EditText pos=(EditText)findViewById(R.id.position_editText);
         TextView title=(TextView)findViewById(R.id.title);
 
+
+
         id.setText(getData(key1));
         name.setText(getData(key2));
         pos.setText(getData(key3));
@@ -42,7 +44,8 @@ public class MainActivity extends AppCompatActivity {
         String s_title=title.getText().toString();
 
         Spannable spannable=new SpannableString(s_title);
-        spannable.setSpan(new ForegroundColorSpan(Color.RED),s_title.length(),s_,spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannable.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.c_text)),0,1,spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        title.setText(spannable,TextView.BufferType.SPANNABLE);
 
     }
 
