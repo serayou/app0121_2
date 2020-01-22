@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         String s_title=title.getText().toString();
 
         Spannable spannable=new SpannableString(s_title);
-        //spannable.setSpan(new ForegroundColorSpan(Color.RED),s_title.length(),s_,spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannable.setSpan(new ForegroundColorSpan(Color.RED),s_title.length(),s_,spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
     }
 
