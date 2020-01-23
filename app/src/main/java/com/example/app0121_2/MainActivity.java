@@ -11,6 +11,7 @@ import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -24,23 +25,26 @@ public class MainActivity extends AppCompatActivity {
     public final String key1="key1";
     public final String key2="key2";
     public final String key3="key3";
+    public final String key4="key4";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        EditText id=(EditText)findViewById(R.id.id_editText);
-        EditText name=(EditText)findViewById(R.id.name_editText);
-        EditText pos=(EditText)findViewById(R.id.position_editText);
-        TextView title=(TextView)findViewById(R.id.title);
+        EditText id = findViewById(R.id.id_editText);
+        EditText name = findViewById(R.id.name_editText);
+        EditText pos = findViewById(R.id.position_editText);
+        TextView title = findViewById(R.id.title);
+        CheckBox saveCheckBox = findViewById(R.id.save_checkBox);
+
+        id.setText(s_getData(key1));
+        name.setText(s_getData(key2));
+        pos.setText(s_getData(key3));
+        saveCheckBox.setChecked(b_getData(key4));
 
 
-
-        id.setText(getData(key1));
-        name.setText(getData(key2));
-        pos.setText(getData(key3));
-
+        //타이틀 색상 변경
         String s_title=title.getText().toString();
 
         Spannable spannable=new SpannableString(s_title);
@@ -49,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void saveData(String key,EditText editText){
+    public void s_saveData(String key,EditText editText){
         SharedPreferences pref=getSharedPreferences(PREFERENCE,MODE_PRIVATE);
         SharedPreferences.Editor editor=pref.edit();
         editor.putString(key,editText.getText().toString());
@@ -58,13 +62,31 @@ public class MainActivity extends AppCompatActivity {
         Log.d(tag,"데이터 저장");
 
     }
+    public void b_saveData(String key,CheckBox checkBox){
+        SharedPreferences pref=getSharedPreferences(PREFERENCE,MODE_PRIVATE);
+        SharedPreferences.Editor editor=pref.edit();
+        editor.putBoolean(key,checkBox.isChecked());
+        editor.commit();
 
-    public String getData(String key){
+        Log.d(tag,"데이터 저장");
 
+    }
+
+    public void removeData(){
+        SharedPreferences pref=getSharedPreferences(PREFERENCE,MODE_PRIVATE);
+        SharedPreferences.Editor editor=pref.edit();
+        editor.clear();
+        editor.commit();
+    }
+
+    public String s_getData(String key){
         SharedPreferences pref=getSharedPreferences(PREFERENCE,MODE_PRIVATE);
         return pref.getString(key,"");
+    }
 
-
+    public Boolean b_getData(String key){
+        SharedPreferences pref=getSharedPreferences(PREFERENCE,MODE_PRIVATE);
+        return pref.getBoolean(key,false);
     }
 
     public boolean fillCheck(EditText editText) {
@@ -85,11 +107,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void okMessage(View view) {
-        CheckBox saveCheckBox = (CheckBox) findViewById(R.id.save_checkBox);
+        CheckBox saveCheckBox = findViewById(R.id.save_checkBox);
 
-        EditText id=(EditText)findViewById(R.id.id_editText);
-        EditText name=(EditText)findViewById(R.id.name_editText);
-        EditText pos=(EditText)findViewById(R.id.position_editText);
+        EditText id = findViewById(R.id.id_editText);
+        EditText name = findViewById(R.id.name_editText);
+        EditText pos = findViewById(R.id.position_editText);
+
 
         if((fillCheck(id) && fillCheck(name) && fillCheck(pos))) {
 
@@ -97,19 +120,22 @@ public class MainActivity extends AppCompatActivity {
 
             if (saveCheckBox.isChecked()) {
 
-                saveData(key1,id);
-                saveData(key2,name);
-                saveData(key3,pos);
+                s_saveData(key1,id);
+                s_saveData(key2,name);
+                s_saveData(key3,pos);
+                b_saveData(key4,saveCheckBox);
 
-                Log.d(tag,"사번:"+getData(key1));
-                Log.d(tag,"이름:"+getData(key2));
-                Log.d(tag,"직책:"+getData(key3));
+
+                //Log.d(tag,"사번:"+s_getData(key1));
+                //Log.d(tag,"이름:"+s_getData(key2));
+                //Log.d(tag,"직책:"+s_getData(key3));
 
                 Toast toast = Toast.makeText(this, "저장하였습니다.", Toast.LENGTH_SHORT);
                 toast.show();
                 finish();
 
             } else {
+                removeData();
 
                 Toast toast = Toast.makeText(this, "저장하지 않고 종료합니다.", Toast.LENGTH_SHORT);
                 toast.show();
@@ -120,3 +146,8 @@ public class MainActivity extends AppCompatActivity {
 
     }
 }
+
+
+
+
+
