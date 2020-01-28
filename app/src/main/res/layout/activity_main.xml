@@ -71,7 +71,7 @@
             android:id="@+id/save_checkBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/save_text"
+            android:text="@string/saveCheckBox_text"
             android:textSize="18sp" />
     </LinearLayout>
 
@@ -92,7 +92,7 @@
             android:layout_weight="1"
             android:background="@color/cancelButton"
             android:onClick="cancelMessage"
-            android:text="@string/cancel_text"
+            android:text="@string/cancelButton_text"
             android:textColor="#ffffff" />
 
         <Button
@@ -102,7 +102,7 @@
             android:layout_weight="1"
             android:background="@color/okButton"
             android:onClick="okMessage"
-            android:text="@string/ok_text"
+            android:text="@string/okButton_text"
             android:textColor="#ffffff" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
