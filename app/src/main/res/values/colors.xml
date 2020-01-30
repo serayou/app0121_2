@@ -6,4 +6,9 @@
     <color name="cancelButton">#7f7f7f</color>
     <color name="okButton">#902850</color>
     <color name="c_text">#0070c0</color>
+    <color name="startButtonColor">#7F7F7F</color>
+    <color name="whiteTextColor">#FFFFFF</color>
+    <color name="blackTextColor">#000000</color>
+    <color name="finishedEatColor">#e2f0d9</color>
+    <color name="failedColor">#fbe5d6</color>
 </resources>
