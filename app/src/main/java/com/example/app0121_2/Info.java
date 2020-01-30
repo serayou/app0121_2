@@ -20,16 +20,18 @@ public class Info {
 
     //오버로드
 
-    public static void s_saveData(Context context,String key, EditText editText){
+    public static void stringSave(Context context,String key, String s){
         SharedPreferences pref=getPreferences(context);
         SharedPreferences.Editor editor=pref.edit();
-        editor.putString(key,editText.getText().toString());
+        editor.putString(key,s);
         editor.commit();
 
         Log.d(tag,"text 데이터 저장");
 
     }
-    public static void b_saveData(Context context,String key, CheckBox checkBox){
+
+
+    public static void boolSave(Context context,String key, CheckBox checkBox){
         SharedPreferences pref=getPreferences(context);
         SharedPreferences.Editor editor=pref.edit();
         editor.putBoolean(key,checkBox.isChecked());
@@ -39,6 +41,7 @@ public class Info {
 
     }
 
+
     public static void removeData(Context context){
         SharedPreferences pref=getPreferences(context);
         SharedPreferences.Editor editor=pref.edit();
@@ -46,12 +49,12 @@ public class Info {
         editor.commit();
     }
 
-    public static String s_getData(Context context,String key){
+    public static String stringGetData(Context context,String key){
         SharedPreferences pref=getPreferences(context);
         return pref.getString(key,"");
     }
 
-    public static Boolean b_getData(Context context,String key){
+    public static Boolean boolGetData(Context context,String key){
         SharedPreferences pref=getPreferences(context);
         return pref.getBoolean(key,false);
 
