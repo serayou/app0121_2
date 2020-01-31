@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
@@ -26,7 +27,8 @@ public class SecondActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
 
-        totalFeed=637000;
+
+
 
 
         textId=findViewById(R.id.secondLayoutId);
@@ -38,7 +40,9 @@ public class SecondActivity extends AppCompatActivity {
 
         textId.setText("["+person.id+"]");
         textName.setText(person.name);
-        textTotalFeed.setText(totalFeed+"개");//새로 시작할 때마다 totalFeed 초기화?
+
+
+
 
 
     }
@@ -55,25 +59,30 @@ public class SecondActivity extends AppCompatActivity {
 
 
     public void startButtonOnClick(View view){
-        int feed;
+
 
         editTextTotalFeed=findViewById(R.id.feed_edittext);     //먹이양 edittext
         editTextTime=findViewById(R.id.time_edittext);          //끼니시간 edittext
 
-        feed=Integer.parseInt(editTextTotalFeed.getText().toString());
+        totalFeed=Integer.parseInt(editTextTotalFeed.getText().toString());
+        textTotalFeed.setText(totalFeed+"개");
 
         if((fillCheck(editTextTotalFeed) && fillCheck(editTextTime))) {
-            if(totalFeed>0) {
 
-                totalFeed = totalFeed - feed;
-                Log.d(tag, "남은 먹이양" + totalFeed);
-                textTotalFeed.setText(totalFeed + "개");
+
+
+            if(totalFeed<0){
+                Toast.makeText(this,getString(R.string.nofeet_text),Toast.LENGTH_SHORT).show();
             }
+
+
 
 
         }else{
             Log.d(tag,"먹이양, 끼니시간 입력");
         }
+
+
 
     }
 }

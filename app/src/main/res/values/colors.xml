@@ -11,4 +11,6 @@
     <color name="blackTextColor">#000000</color>
     <color name="finishedEatColor">#e2f0d9</color>
     <color name="failedColor">#fbe5d6</color>
+    <color name="dividerColor">#80EBC7DC</color>
+
 </resources>
