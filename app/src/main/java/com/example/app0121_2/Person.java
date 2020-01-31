@@ -1,5 +1,7 @@
 package com.example.app0121_2;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.Log;
 import android.widget.EditText;
 
@@ -8,11 +10,16 @@ import com.google.gson.Gson;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Person {
+import java.io.Serializable;
+
+public class Person implements Serializable {
     private static final String tag="Person";
+
+    private static final long serialVersionUID=1L;
     String id;
     String name;
     String position;
+
 
     public String getId(EditText editText) {
         id=editText.getText().toString();

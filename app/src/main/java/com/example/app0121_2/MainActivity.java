@@ -3,6 +3,7 @@ package com.example.app0121_2;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -25,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     public static Context mContext;
 
     Person person = new Person();
+
     JSONObject jsonObject = new JSONObject();
     Savebox my_saveCheckBox=new Savebox();
 
@@ -132,6 +134,23 @@ public class MainActivity extends AppCompatActivity {
         finish();
     }
 
+
+
+
+
+    public void sendInfo(){
+
+        Intent intent =new Intent(this,SecondActivity.class);
+        intent.putExtra("person",person);
+
+        startActivity(intent);
+
+    }
+
+
+
+
+
     public void okMessage(View view) {
 
         CheckBox saveCheckBox = findViewById(R.id.save_checkBox);
@@ -141,7 +160,7 @@ public class MainActivity extends AppCompatActivity {
 
         if((fillCheck(id) && fillCheck(name) && fillCheck(pos))) {
 
-            Log.d(tag, "다 채워짐");
+            //Log.d(tag, "다 채워짐");
 
             if (saveCheckBox.isChecked()) {
 
@@ -149,13 +168,19 @@ public class MainActivity extends AppCompatActivity {
                 my_saveCheckBox.saveChecked(saveCheckBox);
 
                 Toast.makeText(this, getString(R.string.save_text), Toast.LENGTH_SHORT).show();
-                finish();
+
+                //다음 화면으로 이동
+                sendInfo();
+
 
             } else {
                 Info.removeData(mContext);
 
                 Toast.makeText(this, getString(R.string.nsave_text), Toast.LENGTH_SHORT).show();
-                finish();
+
+                //다음 화면으로 이동
+                sendInfo();
+
 
             }
         }
