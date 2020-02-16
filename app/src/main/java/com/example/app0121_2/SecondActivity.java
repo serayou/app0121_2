@@ -6,14 +6,21 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class SecondActivity extends AppCompatActivity {
     private static final String tag="SecondActivity";
+
+    static final String[] LIST_MENU = {"LIST1","LIST2","LIST3"};  //listview sample
 
     private TextView textId;
     private TextView textName;
@@ -27,7 +34,19 @@ public class SecondActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
 
+////listview sample
 
+        ArrayAdapter adapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1,LIST_MENU);
+        ListView listView=findViewById(R.id.progreeListView);
+        listView.setAdapter(adapter);
+
+
+        //List<String> list = new ArrayList<>();
+
+
+
+
+////
 
 
 

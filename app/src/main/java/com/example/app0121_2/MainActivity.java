@@ -136,8 +136,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
-
     public void sendInfo(){
 
         Intent intent =new Intent(this,SecondActivity.class);
@@ -146,9 +144,6 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
 
     }
-
-
-
 
 
     public void okMessage(View view) {
