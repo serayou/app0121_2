@@ -107,7 +107,7 @@
             android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/totalfeed"
+            android:id="@+id/remainedFeed"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/blackTextColor"
@@ -115,7 +115,7 @@
     </LinearLayout>
 
     <ListView
-        android:id="@+id/progreeListView"
+        android:id="@+id/progressListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginLeft="7dp"

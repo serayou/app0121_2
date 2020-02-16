@@ -8,7 +8,7 @@
 
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/item2_imageView"
             android:layout_width="40dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
@@ -18,7 +18,7 @@
             app:srcCompat="@drawable/icon_bird" />
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/item2_textView"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginLeft="5dp"
