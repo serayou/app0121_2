@@ -27,6 +27,6 @@
             android:layout_marginBottom="5dp"
             android:layout_weight="8"
             android:gravity="center_vertical"
-            android:text="고양이가 식사를 하지 못했습니다." />
+            android:text="text" />
 
 </LinearLayout>
