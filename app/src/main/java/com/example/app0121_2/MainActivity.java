@@ -10,6 +10,7 @@ import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.View;
+
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -30,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
     JSONObject jsonObject = new JSONObject();
     Savebox my_saveCheckBox=new Savebox();
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,7 +42,9 @@ public class MainActivity extends AppCompatActivity {
         //타이틀 색상 변경
         changeTextColor();
 
+
     }
+
 
     @Override
     protected void onStart() {

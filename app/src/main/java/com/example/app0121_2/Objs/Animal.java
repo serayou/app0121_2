@@ -6,7 +6,7 @@ public abstract class Animal {
 
     private final String LOG_TAG = "Animal";
 
-    public final static int DAY_FEED_MAX_COUNT = 3;
+    public final static int DAY_FEED_MAX_COUNT = 3;           //하루 3끼 최대
     public int feedVolume = 0;
     public int eatFeeds = 0;
     public String name = "";
@@ -27,7 +27,7 @@ public abstract class Animal {
             Log.i(LOG_TAG, name + "가 먹이를 먹었습니다.");
             eatFeeds += feedVolume;
             Log.i(LOG_TAG, "현재까지 " + name + "가 먹은 양 : " + eatFeeds);
-            feed -= feedVolume;
+            feed -= feedVolume;   //feed : tom 이 가지고 있는 양 , feedvoloume : 고양이가 먹는양
             return feed;
         } else {
             Log.i(LOG_TAG, name + "가 먹이를 먹지 못하였습니다.");
