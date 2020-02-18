@@ -31,50 +31,49 @@ import java.util.List;
 public class SecondActivity extends AppCompatActivity {
     private static final String tag="SecondActivity";
 
-    ListView listView;
-
-    String mTitle []={"고양이","참새","거북이"};
-    int images[]={R.drawable.icon_cat,R.drawable.icon_bird, R.drawable.icon_turtle};
+//    ListView listView;
+//
+//    String mTitle []={"고양이","참새","거북이"};
+//    int images[]={R.drawable.icon_cat,R.drawable.icon_bird, R.drawable.icon_turtle};
 
     private TextView textId;
     private TextView textName;
 
     private EditText editTotalFeed;  //입력 먹이양
     private EditText editTime;       //입력 끼니시간
-    private TextView textRemainFeed;
 
     private FeedScheduler scheduler;
 
 
 
-    class MyAdapter extends ArrayAdapter<String>{
-        Context context;
-        String rTitle[];
-        int rImgs[];
-
-        MyAdapter(Context c, String title[], int imgs[]){
-            super(c, R.layout.item2, R.id.item2_textView,title);
-            this.context=c;
-            this.rTitle=title;
-            this.rImgs=imgs;
-
-        }
-
-        @NonNull
-        @Override
-        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-            LayoutInflater layoutInflater=(LayoutInflater)getApplicationContext().getSystemService(context.LAYOUT_INFLATER_SERVICE);
-            View item2=layoutInflater.inflate(R.layout.item2,parent,false);
-
-            ImageView images=item2.findViewById(R.id.item2_imageView);
-            TextView myTitle=item2.findViewById(R.id.item2_textView);
-
-            images.setImageResource(rImgs[position]);
-            myTitle.setText(rTitle[position]+getString(R.string.ndone_text));
-
-            return item2;
-        }
-    }
+//    class MyAdapter extends ArrayAdapter<String>{
+//        Context context;
+//        String rTitle[];
+//        int rImgs[];
+//
+//        MyAdapter(Context c, String title[], int imgs[]){
+//            super(c, R.layout.item2, R.id.item2_textView,title);
+//            this.context=c;
+//            this.rTitle=title;
+//            this.rImgs=imgs;
+//
+//        }
+//
+//        @NonNull
+//        @Override
+//        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+//            LayoutInflater layoutInflater=(LayoutInflater)getApplicationContext().getSystemService(context.LAYOUT_INFLATER_SERVICE);
+//            View item2=layoutInflater.inflate(R.layout.item2,parent,false);
+//
+//            ImageView images=item2.findViewById(R.id.item2_imageView);
+//            TextView myTitle=item2.findViewById(R.id.item2_textView);
+//
+//            images.setImageResource(rImgs[position]);
+//            myTitle.setText(rTitle[position]+getString(R.string.ndone_text));
+//
+//            return item2;
+//        }
+//    }
 
 
 
@@ -87,11 +86,9 @@ public class SecondActivity extends AppCompatActivity {
         initLayout();
         initScheduler();
 
-        listView=findViewById(R.id.progressListView);
-
         textId=findViewById(R.id.secondLayoutId);
         textName=findViewById(R.id.secondLayoutName);
-        textRemainFeed=findViewById(R.id.remainFeed);    //남은 먹이양 표시
+
 
         Intent intent = getIntent();
         Person person =(Person) intent.getSerializableExtra("person");
@@ -100,21 +97,13 @@ public class SecondActivity extends AppCompatActivity {
         textName.setText(person.name);
 
 
-        //test
-
-
-
-
 
     }
 
     private void initLayout() {
         editTotalFeed = (EditText)findViewById(R.id.feed_edittext);
         editTime = (EditText)findViewById(R.id.time_edittext);
-        listView=findViewById(R.id.progressListView);
-        textRemainFeed=(TextView)findViewById(R.id.remainFeed);
-
- //       ((Button)findViewById(R.id.start_button)).setOnClickListener(clickListener);
+//        listView=findViewById(R.id.progressListView);
 
     }
 
@@ -141,13 +130,11 @@ public class SecondActivity extends AppCompatActivity {
             Toast.makeText(SecondActivity.this, "끼니시간을 입력해주세요!", Toast.LENGTH_SHORT).show();
         }
         scheduler.setFeed(feed);
-        scheduler.setDuration(duration);
+        scheduler.setDuration(duration*1000);
         runScheduler();
 
-        MyAdapter adapter=new MyAdapter(this,mTitle,images);
-        listView.setAdapter(adapter);
-
-
+//        MyAdapter adapter=new MyAdapter(this,mTitle,images);
+//        listView.setAdapter(adapter);
 
 
     }
