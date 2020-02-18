@@ -2,33 +2,12 @@ package com.example.app0121_2.Objs;
 
 import android.app.Activity;
 import android.content.Context;
-import android.media.Image;
-import android.os.Handler;
-import android.os.Message;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.animation.AccelerateInterpolator;
-import android.widget.Adapter;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
-import com.example.app0121_2.ListviewItem;
 import com.example.app0121_2.MyAdapter;
-import com.example.app0121_2.MyAdapter2;
 import com.example.app0121_2.R;
-import com.example.app0121_2.SecondActivity;
-
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public abstract class Animal {
     static Context mContext;
@@ -43,7 +22,7 @@ public abstract class Animal {
     public int eatFeeds = 0;
     public String name = "";
 
-    ArrayList<ListviewItem> data = new ArrayList<>();
+    MyAdapter adapter=new MyAdapter();
 
     public static void InitAnimal(Context context){
         mContext=context;
@@ -70,22 +49,46 @@ public abstract class Animal {
         });
     }
 
-    private void showAnimal(){
+    private void showAnimal(final String name){
         ((Activity) mContext).runOnUiThread(new Runnable(){
             @Override
             public void run(){
-                MyAdapter adapter=new MyAdapter(mContext,R.layout.item2,data);
                 listView.setAdapter(adapter);
+
+
+                if(name=="고양이"){
+                   adapter.addItem(R.drawable.icon_cat,name);
+
+                }
+                if(name=="참새"){
+                    adapter.addItem(R.drawable.icon_bird,name);
+                }
+                if(name=="거북이") {
+                    adapter.addItem(R.drawable.icon_turtle,name);
+
+                }
+
             }
         });
     }
 
-    private void showProgress(){
+    private void showProgress(final String name,final int feed){
         ((Activity) mContext).runOnUiThread(new Runnable(){
             @Override
             public void run(){
-                MyAdapter2 adapter2=new MyAdapter2(mContext,R.layout.item1,data);
-                listView.setAdapter(adapter2);
+                listView.setAdapter(adapter);
+
+
+                if(name=="고양이"){
+                    adapter.addItem(R.drawable.icon_cat,name,feed);
+                }
+                if(name=="참새"){
+                    adapter.addItem(R.drawable.icon_bird,name,feed);
+                }
+                if(name=="거북이"){
+                    adapter.addItem(R.drawable.icon_turtle,name,feed);
+                }
+
 
             }
         });
@@ -98,56 +101,24 @@ public abstract class Animal {
         textRemainFeed=((Activity)mContext).findViewById(R.id.remainFeed);
         listView=((Activity)mContext).findViewById(R.id.progressListView);
 
-        ListviewItem cat=new ListviewItem(R.drawable.icon_cat,name,eatFeeds);
-        ListviewItem bird=new ListviewItem(R.drawable.icon_bird,name,eatFeeds);
-        ListviewItem turtle=new ListviewItem(R.drawable.icon_turtle,name,eatFeeds);
 
         if(feed >= feedVolume) {
             Log.i(LOG_TAG, name + "가 먹이를 먹었습니다.");
             eatFeeds += feedVolume;
             Log.i(LOG_TAG, "현재까지 " + name + "가 먹은 양 : " + eatFeeds);
 
-            if(name=="고양이"){
-
-                data.add(cat);
-                showProgress();
-            }
-//            if(name=="참새"){
-//
-//                data.add(bird);
-//                showProgress();
-//            }
-//            if(name=="거북이") {
-//
-//                data.add(turtle);
-//                showProgress();
-//            }
-
-
+            showProgress(name,eatFeeds);
 
             feed -= feedVolume;                                   //feed : tom 이 가지고 있는 양 , feedvoloume : 고양이가 먹는양
             Log.i(LOG_TAG, "남은 먹이 양 : " + feed);
 
             showText(textRemainFeed,feed);                         //남은 먹이양 textview에 feed를 실시간으로 표시
 
-
             return feed;
         } else {
             Log.i(LOG_TAG, name + "가 먹이를 먹지 못하였습니다.");
 
-            //먹지 못한 동물의 리스트?item?이 나타남
-            if(name=="고양이"){
-                data.add(cat);
-
-            }else if(name=="참새"){
-                data.add(bird);
-            }else {
-                data.add(turtle);
-            }
-
-            showAnimal();
-
-
+            showAnimal(name);
 
             return feed;
         }

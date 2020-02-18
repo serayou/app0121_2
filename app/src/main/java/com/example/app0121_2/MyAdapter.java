@@ -15,26 +15,30 @@ import androidx.annotation.Nullable;
 import java.util.ArrayList;
 
 public class MyAdapter extends BaseAdapter  {
-   private LayoutInflater inflater;
-   private ArrayList<ListviewItem> data;
-   private int layout;
+   private static final int ITEM_VIEW_TYPE_GREEN=0;
+   private static final int ITEM_VIEW_TYPE_RED=1;
+   private static final int ITEM_VIEW_TYPE_MAX=2;
 
-   public MyAdapter(Context context, int layout,ArrayList<ListviewItem> data){
+   private ArrayList<ListviewItem> listViewItemList = new ArrayList<>() ;
+
+   public MyAdapter(){
       notifyDataSetChanged();
-      this.inflater=(LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-      this.data=data;
-      this.layout=layout;
+
    }
 
    @Override
    public int getCount() {
-      return data.size();
+      return listViewItemList.size();
    }
 
+   @Override
+   public int getViewTypeCount() {
+      return ITEM_VIEW_TYPE_MAX;
+   }
 
    @Override
-   public String getItem(int position){
-      return data.get(position).getName();
+   public int getItemViewType(int position) {
+      return listViewItemList.get(position).getType();
    }
 
    @Override
@@ -43,22 +47,68 @@ public class MyAdapter extends BaseAdapter  {
    }
 
    @Override
+   public Object getItem(int position) {
+      return listViewItemList.get(position);
+   }
+
+   @Override
    public View getView(int position, View convertView, ViewGroup parent) {
+      final Context context=parent.getContext();
+      int viewType=getItemViewType(position);
+
+      if(convertView==null) {
+         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+         ListviewItem listviewItem = listViewItemList.get(position);
+
+         switch (viewType) {
+            case ITEM_VIEW_TYPE_GREEN:
+               convertView = inflater.inflate(R.layout.item1, parent, false);
+               ImageView greenIcon = (ImageView) convertView.findViewById(R.id.item1_imageView);
+               TextView greenName = (TextView) convertView.findViewById(R.id.item1_name);
+               TextView greenFeed = (TextView) convertView.findViewById(R.id.item1_feed);
+
+               greenIcon.setImageResource(listviewItem.getIcon());
+               greenName.setText(listviewItem.getName() + convertView.getResources().getString(R.string.done_text));
+               greenFeed.setText(convertView.getResources().getString(R.string.now_text) +" "+ listviewItem.getFeed() + convertView.getResources().getString(R.string.feedG_text));
+               break;
 
 
-      if(convertView==null){
-         convertView=inflater.inflate(layout,parent,false);
+            case ITEM_VIEW_TYPE_RED:
+               convertView = inflater.inflate(R.layout.item2, parent, false);
+               ImageView redIcon = (ImageView) convertView.findViewById(R.id.item2_imageView);
+               TextView redName = (TextView) convertView.findViewById(R.id.item2_textView);
+
+               redIcon.setImageResource(listviewItem.getIcon());
+               redName.setText(listviewItem.getName() + convertView.getResources().getString(R.string.ndone_text));
+               break;
+
+         }
       }
-
-      ListviewItem listviewItem=data.get(position);
-
-      ImageView icon=(ImageView)convertView.findViewById(R.id.item2_imageView);
-      TextView name=(TextView)convertView.findViewById(R.id.item2_textView);
-
-      icon.setImageResource(listviewItem.getIcon());
-      name.setText(listviewItem.getName()+convertView.getResources().getString(R.string.ndone_text));
 
       return convertView;
    }
+
+   public void addItem(int icon,String name,int feed){
+      ListviewItem item=new ListviewItem();
+      item.setType(ITEM_VIEW_TYPE_GREEN);
+      item.setIcon(icon);
+      item.setName(name);
+      item.setFeed(feed);
+
+      listViewItemList.add(item);
+
+   }
+   public void addItem(int icon, String name){
+      ListviewItem item=new ListviewItem();
+      item.setType(ITEM_VIEW_TYPE_RED);
+      item.setIcon(icon);
+      item.setName(name);
+
+
+      listViewItemList.add(item);
+   }
+
+
 
 }

@@ -95,7 +95,7 @@ public class FeedScheduler extends AppCompatActivity {
 
     private void printResult(Animal animal, int remain) {
         String hungryPet = animal.name;
-        Log.i(LOG_TAG, String.format("남은 먹이양 : %d", remain));
+        Log.i(LOG_TAG, String.format("[결과]남은 먹이양 : %d", remain));
         Log.i(LOG_TAG,  "못 먹는 아이 : " + hungryPet);
     }
 }

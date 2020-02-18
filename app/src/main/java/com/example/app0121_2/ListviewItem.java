@@ -7,11 +7,11 @@ public class ListviewItem {
     private String name;
     private int feed;
 
-    public ListviewItem(int icon,String name,int feed){
-        this.icon=icon;
-        this.name=name;
-        this.feed=feed;
-    }
+//    public ListviewItem(int icon,String name,int feed){
+//        this.icon=icon;
+//        this.name=name;
+//        this.feed=feed;
+//    }
 
     public int getType() {
         return type;

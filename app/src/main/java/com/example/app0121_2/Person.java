@@ -50,6 +50,7 @@ public class Person implements Serializable {
     public void setPosition(String position) {
 
         this.position = position;
+
     }
 
 
