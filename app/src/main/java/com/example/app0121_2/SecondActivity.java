@@ -130,7 +130,7 @@ public class SecondActivity extends AppCompatActivity {
             Toast.makeText(SecondActivity.this, "끼니시간을 입력해주세요!", Toast.LENGTH_SHORT).show();
         }
         scheduler.setFeed(feed);
-        scheduler.setDuration(duration*1000);
+        scheduler.setDuration(duration);
         runScheduler();
 
 //        MyAdapter adapter=new MyAdapter(this,mTitle,images);

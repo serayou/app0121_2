@@ -124,7 +124,9 @@
         android:layout_marginBottom="10dp"
         android:background="#CAAD9C"
         android:divider="@color/dividerColor"
-        android:dividerHeight="3dp" />
+        android:dividerHeight="3dp"
+        android:stackFromBottom="true"
+        android:transcriptMode="alwaysScroll"/>
 
 
 </LinearLayout>

@@ -2,6 +2,7 @@ package com.example.app0121_2.Objs;
 
 import android.app.Activity;
 import android.content.Context;
+import android.media.Image;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
@@ -9,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
+import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -17,18 +19,20 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.app0121_2.ListviewItem;
+import com.example.app0121_2.MyAdapter;
+import com.example.app0121_2.MyAdapter2;
 import com.example.app0121_2.R;
 import com.example.app0121_2.SecondActivity;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public abstract class Animal {
     static Context mContext;
-
-    ListView listView;
-
-    String mTitle []={"고양이","참새","거북이"};
-    int images[]={R.drawable.icon_cat,R.drawable.icon_bird, R.drawable.icon_turtle};
+    public ListView listView;
 
     private final String LOG_TAG = "Animal";
 
@@ -39,6 +43,8 @@ public abstract class Animal {
     public int eatFeeds = 0;
     public String name = "";
 
+    ArrayList<ListviewItem> data = new ArrayList<>();
+
     public static void InitAnimal(Context context){
         mContext=context;
     }
@@ -48,40 +54,11 @@ public abstract class Animal {
         Log.i(LOG_TAG, name + "가 들어왔습니다.");
     }
 
+
     public void setFeedVolume(int volume) {
         feedVolume = volume;
         Log.i(LOG_TAG, name + "가 먹을 수 있는 먹이 양은 " + feedVolume + " 그램 입니다.");
 
-    }
-
-    class MyAdapter extends ArrayAdapter<String> {
-        Context context;
-        String rTitle[];
-        int rImgs[];
-
-        MyAdapter(Context c, String title[], int imgs[]){
-            super(c, R.layout.item2, R.id.item2_textView,title);
-            this.context=c;
-            this.rTitle=title;
-            this.rImgs=imgs;
-
-        }
-
-        @NonNull
-        @Override
-        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-            //LayoutInflater layoutInflater=(LayoutInflater)getApplicationContext().getSystemService(context.LAYOUT_INFLATER_SERVICE);
-            LayoutInflater layoutInflater=(LayoutInflater)mContext.getSystemService(context.LAYOUT_INFLATER_SERVICE);
-            View item2=layoutInflater.inflate(R.layout.item2,parent,false);
-
-            ImageView images=item2.findViewById(R.id.item2_imageView);
-            TextView myTitle=item2.findViewById(R.id.item2_textView);
-
-            images.setImageResource(rImgs[position]);
-            myTitle.setText(rTitle[position]+"가 식사를 하지 못했습니다.");
-
-            return item2;
-        }
     }
 
     private void showText(final TextView textView,final int remainfeed){
@@ -93,14 +70,27 @@ public abstract class Animal {
         });
     }
 
-    final Handler handler=new Handler(){
-        public void handleMessage(Message msg){
+    private void showAnimal(){
+        ((Activity) mContext).runOnUiThread(new Runnable(){
+            @Override
+            public void run(){
+                MyAdapter adapter=new MyAdapter(mContext,R.layout.item2,data);
+                listView.setAdapter(adapter);
+            }
+        });
+    }
 
-            MyAdapter adapter=new MyAdapter(mContext,mTitle,images);
-            listView.setAdapter(adapter);
-        }
+    private void showProgress(){
+        ((Activity) mContext).runOnUiThread(new Runnable(){
+            @Override
+            public void run(){
+                MyAdapter2 adapter2=new MyAdapter2(mContext,R.layout.item1,data);
+                listView.setAdapter(adapter2);
 
-    };
+            }
+        });
+    }
+
 
 
     public int eat(int feed) {
@@ -108,24 +98,55 @@ public abstract class Animal {
         textRemainFeed=((Activity)mContext).findViewById(R.id.remainFeed);
         listView=((Activity)mContext).findViewById(R.id.progressListView);
 
+        ListviewItem cat=new ListviewItem(R.drawable.icon_cat,name,eatFeeds);
+        ListviewItem bird=new ListviewItem(R.drawable.icon_bird,name,eatFeeds);
+        ListviewItem turtle=new ListviewItem(R.drawable.icon_turtle,name,eatFeeds);
 
         if(feed >= feedVolume) {
             Log.i(LOG_TAG, name + "가 먹이를 먹었습니다.");
             eatFeeds += feedVolume;
             Log.i(LOG_TAG, "현재까지 " + name + "가 먹은 양 : " + eatFeeds);
+
+            if(name=="고양이"){
+
+                data.add(cat);
+                showProgress();
+            }
+//            if(name=="참새"){
+//
+//                data.add(bird);
+//                showProgress();
+//            }
+//            if(name=="거북이") {
+//
+//                data.add(turtle);
+//                showProgress();
+//            }
+
+
+
             feed -= feedVolume;                                   //feed : tom 이 가지고 있는 양 , feedvoloume : 고양이가 먹는양
             Log.i(LOG_TAG, "남은 먹이 양 : " + feed);
 
             showText(textRemainFeed,feed);                         //남은 먹이양 textview에 feed를 실시간으로 표시
 
+
             return feed;
         } else {
             Log.i(LOG_TAG, name + "가 먹이를 먹지 못하였습니다.");
 
-
             //먹지 못한 동물의 리스트?item?이 나타남
-            Message msg=handler.obtainMessage();
-            handler.sendMessage(msg);
+            if(name=="고양이"){
+                data.add(cat);
+
+            }else if(name=="참새"){
+                data.add(bird);
+            }else {
+                data.add(turtle);
+            }
+
+            showAnimal();
+
 
 
             return feed;
