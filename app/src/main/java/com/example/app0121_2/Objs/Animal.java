@@ -67,45 +67,6 @@ public abstract class Animal {
     };
 
 
-//
-//
-//    private void showAnimal(final int icon, final String name) {
-//
-//        ((Activity) mContext).runOnUiThread(new Runnable() {
-//            @Override
-//            public void run() {
-//                adapter.notifyDataSetChanged();
-//                listView.setAdapter(adapter);
-//                adapter.addItem(icon, name);
-//
-//            }
-//        });
-//
-//    }
-//
-//
-//    private void showProgress(final int icon, final String name, final int feed) {
-//
-//        ((Activity) mContext).runOnUiThread(new Runnable() {
-//            @Override
-//            public void run() {
-//                adapter.notifyDataSetChanged();
-//                listView.setAdapter(adapter);
-//                adapter.addItem(icon, name, feed);
-//
-//
-//
-//            }
-//        });
-//
-//    }
-
-
-
-
-
-
-
     public int eat(int feed) {
 
         textRemainFeed = ((Activity) mContext).findViewById(R.id.remainFeed);
