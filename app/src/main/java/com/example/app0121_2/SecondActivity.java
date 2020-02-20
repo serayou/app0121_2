@@ -28,8 +28,10 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.sql.Types.NULL;
+
 public class SecondActivity extends AppCompatActivity {
-    private static final String tag="SecondActivity";
+    private static final String tag = "SecondActivity";
 
     private TextView textId;
     private TextView textName;
@@ -39,6 +41,8 @@ public class SecondActivity extends AppCompatActivity {
 
     private FeedScheduler scheduler;
 
+    int feed;
+    int duration;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,23 +54,22 @@ public class SecondActivity extends AppCompatActivity {
         initScheduler();
 
         Intent intent = getIntent();
-        Person person =(Person) intent.getSerializableExtra("person");
+        Person person = (Person) intent.getSerializableExtra("person");
 
-        textId.setText("["+person.id+"]");
+        textId.setText("[" + person.id + "]");
         textName.setText(person.name);
-
 
     }
 
     private void initLayout() {
-        editTotalFeed = (EditText)findViewById(R.id.feed_edittext);
-        editTime = (EditText)findViewById(R.id.time_edittext);
-        textId=findViewById(R.id.secondLayoutId);
-        textName=findViewById(R.id.secondLayoutName);
+        editTotalFeed = (EditText) findViewById(R.id.feed_edittext);
+        editTime = (EditText) findViewById(R.id.time_edittext);
+        textId = findViewById(R.id.secondLayoutId);
+        textName = findViewById(R.id.secondLayoutName);
 
     }
 
-    private void initScheduler(){
+    private void initScheduler() {
         scheduler = new FeedScheduler();
         scheduler.setManager(new Tom());
         scheduler.setFeed(10000);
@@ -77,23 +80,36 @@ public class SecondActivity extends AppCompatActivity {
         scheduler.startScheduleToFeed();
     }
 
-    public void startButtonOnClick(View view){
-        int feed = Integer.parseInt(editTotalFeed.getText().toString());
-        int duration = Integer.parseInt(editTime.getText().toString());
+    public boolean fillCheck(EditText editText) {
+        Log.d(tag, "체크하기");
 
-        if(feed == 0) {
-            Toast.makeText(SecondActivity.this, "먹이 양을 입력해주세요!", Toast.LENGTH_SHORT).show();
-
+        if (editText.getText().toString().length() != 0) {
+            return true;
+        } else {
+            return false;
         }
-        if(duration == 0) {
-            Toast.makeText(SecondActivity.this, "끼니시간을 입력해주세요!", Toast.LENGTH_SHORT).show();
-        }
-        scheduler.setFeed(feed);
-        scheduler.setDuration(duration);
-        runScheduler();
-
-
     }
 
+    public void startButtonOnClick(View view) {
+
+        if ((fillCheck(editTotalFeed) && fillCheck(editTime))) {
+
+            feed = Integer.parseInt(editTotalFeed.getText().toString());
+            duration = Integer.parseInt(editTime.getText().toString());
+
+            scheduler.setFeed(feed);
+            scheduler.setDuration(duration);
+            runScheduler();
+
+        } else {
+            if (!fillCheck(editTotalFeed)) {
+                Toast.makeText(SecondActivity.this, "먹이 양을 입력해주세요!", Toast.LENGTH_SHORT).show();
+            }
+            if (!fillCheck(editTime)) {
+                Toast.makeText(SecondActivity.this, "끼니시간을 입력해주세요!", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+    }
 
 }
