@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
@@ -124,13 +125,19 @@ public class SecondActivity extends AppCompatActivity {
         handler.sendMessage(msg);
     }
 
-    public void showText(int remainFeed) {
+    public void showText(final int remainFeed) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                textRemain.setText(remainFeed + "개");
+                Log.i(LOG_TAG, String.format("[실시간 남은 먹이양] : "+ remainFeed));
+            }
+        });
 
-        textRemain.setText(remainFeed + "개");
 
     }
 
-    final android.os.Handler handler = new android.os.Handler() {
+    final Handler handler = new Handler() {
         public void handleMessage(Message msg) {
             adapter.notifyDataSetChanged();
         }

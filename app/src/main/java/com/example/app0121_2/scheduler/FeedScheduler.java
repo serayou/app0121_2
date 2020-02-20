@@ -64,7 +64,7 @@ public class FeedScheduler extends AppCompatActivity {
                     totalFeedCount++;
                     printProgress(dayCount, dayFeedCount, totalFeedCount);
                     remainAnimal=  tom.feedToPets();
-                    showText(tom.getFeed());
+                    ((SecondActivity)SecondActivity.mContext).showText(tom.getFeed());
 
                     if(remainAnimal == null) {
                         try {
@@ -86,15 +86,6 @@ public class FeedScheduler extends AppCompatActivity {
         }).start();
 
     }
-
-
-    public void showText(int remainFeed) {
-
-        ((SecondActivity)SecondActivity.mContext).showText(remainFeed);
-        Log.i(LOG_TAG, String.format("[실시간 남은 먹이양] : "+ remainFeed));
-
-    }
-
 
     private void printProgress(int dayCount, int dayFeedCount, int feedCount) {
         Log.i(LOG_TAG, String.format("먹이주기 %d일째, %d번째 끼니...", dayCount, dayFeedCount));

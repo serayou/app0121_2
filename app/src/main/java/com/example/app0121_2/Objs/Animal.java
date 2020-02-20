@@ -40,14 +40,13 @@ public abstract class Animal {
         animalIcon = icon;
     }
 
-
     public int eat(int feed) {
 
         if (feed >= feedVolume) {
             Log.i(LOG_TAG, name + "가 먹이를 먹었습니다.");
             eatFeeds += feedVolume;
             Log.i(LOG_TAG, "현재까지 " + name + "가 먹은 양 : " + eatFeeds);
-            feed -= feedVolume;                                    //feed : tom 이 가지고 있는 양 , feedvoloume : 고양이가 먹는양
+            feed -= feedVolume;
             Log.i(LOG_TAG, "남은 먹이 양 : " + feed);
 
             ((SecondActivity)SecondActivity.mContext).showProgress(animalIcon, name, eatFeeds);
@@ -63,6 +62,5 @@ public abstract class Animal {
     }
 
     public abstract void move();
-
 
 }
