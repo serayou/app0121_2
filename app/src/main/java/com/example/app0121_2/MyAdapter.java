@@ -14,18 +14,22 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.app0121_2.Objs.Animal;
+
 import java.util.ArrayList;
 
 public class MyAdapter extends BaseAdapter {
     private final String LOG_TAG = "MyAdapter";
-    private static final int ITEM_VIEW_TYPE_GREEN = 0;
-    private static final int ITEM_VIEW_TYPE_RED = 1;
-    private static final int ITEM_VIEW_TYPE_MAX = 2;
 
-    private ArrayList<ListviewItem> listViewItemList = new ArrayList<>();
+    public static final int ITEM_VIEW_TYPE_GREEN = 0;
+    public static final int ITEM_VIEW_TYPE_RED = 1;
+    public static final int ITEM_VIEW_TYPE_MAX = 2;
+
+    public ArrayList<ListviewItem> listViewItemList = new ArrayList<>();
+
 
     public MyAdapter() {
-        // notifyDataSetChanged();
+
     }
 
     @Override
@@ -98,6 +102,7 @@ public class MyAdapter extends BaseAdapter {
 
         switch (viewType) {
             case ITEM_VIEW_TYPE_GREEN:
+                //Log.i(LOG_TAG, "[표시]");
                 holder.greenIcon.setImageResource(listviewItem.getIcon());
                 holder.greenName.setText(listviewItem.getName() + convertView.getResources().getString(R.string.done_text));
                 holder.greenFeed.setText(convertView.getResources().getString(R.string.now_text) + " " + listviewItem.getFeed() + convertView.getResources().getString(R.string.feedG_text));
@@ -119,6 +124,7 @@ public class MyAdapter extends BaseAdapter {
         item.setFeed(feed);
 
         listViewItemList.add(item);
+
     }
 
     public void addItem(int icon, String name) {
@@ -128,15 +134,24 @@ public class MyAdapter extends BaseAdapter {
         item.setName(name);
 
         listViewItemList.add(item);
+
     }
 
-    public void showAnimal(final int icon, final String name) {
-        addItem(icon, name);
-    }
 
-    public void showProgress(final int icon, final String name, final int feed) {
+
+    public void showProgress(int icon, String name, int feed) {
         //Log.i(LOG_TAG, "[동물 add] : " + name);
         addItem(icon, name, feed);
+
     }
+
+    //못먹은 동물 표시
+    public void showAnimal(int icon, String name) {
+
+        addItem(icon, name);
+
+
+    }
+
 
 }
