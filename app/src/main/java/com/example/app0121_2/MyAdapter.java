@@ -27,8 +27,7 @@ public class MyAdapter extends BaseAdapter {
 
     public ArrayList<ListviewItem> listViewItemList = new ArrayList<>();
 
-
-    public MyAdapter() {
+    public MyAdapter(){
 
     }
 
@@ -71,11 +70,14 @@ public class MyAdapter extends BaseAdapter {
         int viewType = getItemViewType(position);
 
         ListviewHolder holder;
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
         ListviewItem listviewItem = listViewItemList.get(position);
 
         if (convertView == null) {
             holder = new ListviewHolder();
+
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
 
             switch (viewType) {
                 case ITEM_VIEW_TYPE_GREEN:
@@ -135,16 +137,5 @@ public class MyAdapter extends BaseAdapter {
         listViewItemList.add(item);
 
     }
-
-    public void showProgress(int icon, String name, int feed) {
-        //Log.i(LOG_TAG, "[동물 add] : " + name);
-        addItem(icon, name, feed);
-    }
-
-    //못먹은 동물 표시
-    public void showAnimal(int icon, String name) {
-        addItem(icon, name);
-    }
-
 
 }

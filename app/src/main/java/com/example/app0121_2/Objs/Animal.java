@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.example.app0121_2.ListviewItem;
 import com.example.app0121_2.MyAdapter;
 import com.example.app0121_2.R;
+import com.example.app0121_2.SecondActivity;
 
 import java.util.ArrayList;
 import java.util.logging.Handler;
@@ -19,22 +20,11 @@ import java.util.logging.LogRecord;
 public abstract class Animal {
     private final String LOG_TAG = "Animal";
 
-    static Context mContext;
-    public ListView listView;
-    public TextView textRemainFeed;
-
     public final static int DAY_FEED_MAX_COUNT = 3;           //하루 3끼 최대
     public int feedVolume = 0;
     public int eatFeeds = 0;
     public String name = "";
     public int animalIcon = 0;
-
-    public static MyAdapter adapter = new MyAdapter();
-
-    public static void InitAnimal(Context context) {
-        mContext = context;
-    }
-
 
     protected void setName(String name) {
         this.name = name;
@@ -50,35 +40,8 @@ public abstract class Animal {
         animalIcon = icon;
     }
 
-    private void showText(final TextView textView, final int remainFeed) {
-        ((Activity) mContext).runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                Log.i(LOG_TAG,"[남은 양 업데이트]");
-                textView.setText(remainFeed + "개");
-            }
-        });
-    }
-
-
-
-
-
-
-
-    final android.os.Handler handler=new android.os.Handler(){
-        public void handleMessage(Message msg){
-            listView.setAdapter(adapter);
-        }
-    };
 
     public int eat(int feed) {
-
-        textRemainFeed = ((Activity) mContext).findViewById(R.id.remainFeed);
-        listView = ((Activity) mContext).findViewById(R.id.progressListView);
-
-        Message msg=handler.obtainMessage();
-        handler.sendMessage(msg);
 
         if (feed >= feedVolume) {
             Log.i(LOG_TAG, name + "가 먹이를 먹었습니다.");
@@ -87,14 +50,13 @@ public abstract class Animal {
             feed -= feedVolume;                                    //feed : tom 이 가지고 있는 양 , feedvoloume : 고양이가 먹는양
             Log.i(LOG_TAG, "남은 먹이 양 : " + feed);
 
-            adapter.showProgress(animalIcon, name, eatFeeds);
-            showText(textRemainFeed, feed);     //남은 먹이양 textview에 feed를 실시간으로 표시
+            ((SecondActivity)SecondActivity.mContext).showProgress(animalIcon, name, eatFeeds);
 
             return feed;
         } else {
             Log.i(LOG_TAG, name + "가 먹이를 먹지 못하였습니다.");
 
-            adapter.showAnimal(animalIcon, name);
+            ((SecondActivity)SecondActivity.mContext).showAnimal(animalIcon, name);
 
             return feed;
         }

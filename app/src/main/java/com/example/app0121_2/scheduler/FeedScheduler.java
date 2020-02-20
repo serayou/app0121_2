@@ -1,5 +1,7 @@
 package com.example.app0121_2.scheduler;
 
+import android.app.Activity;
+import android.content.Context;
 import android.util.Log;
 import android.widget.TextView;
 
@@ -7,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.app0121_2.Objs.Animal;
 import com.example.app0121_2.Objs.Tom;
+import com.example.app0121_2.SecondActivity;
 
 
 import static java.lang.Thread.sleep;
@@ -19,9 +22,6 @@ public class FeedScheduler extends AppCompatActivity {
     private Tom tom;
     private int duration = 0;
     private boolean isInterruptOcurred =  false;
-
-
-
 
     public void setManager(Tom tom) {
         this.tom = tom;
@@ -64,6 +64,7 @@ public class FeedScheduler extends AppCompatActivity {
                     totalFeedCount++;
                     printProgress(dayCount, dayFeedCount, totalFeedCount);
                     remainAnimal=  tom.feedToPets();
+                    showText(tom.getFeed());
 
                     if(remainAnimal == null) {
                         try {
@@ -86,6 +87,13 @@ public class FeedScheduler extends AppCompatActivity {
 
     }
 
+
+    public void showText(int remainFeed) {
+
+        ((SecondActivity)SecondActivity.mContext).showText(remainFeed);
+        Log.i(LOG_TAG, String.format("[실시간 남은 먹이양] : "+ remainFeed));
+
+    }
 
 
     private void printProgress(int dayCount, int dayFeedCount, int feedCount) {

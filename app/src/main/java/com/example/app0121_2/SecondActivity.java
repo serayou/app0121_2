@@ -1,20 +1,14 @@
 package com.example.app0121_2;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Message;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,44 +17,41 @@ import com.example.app0121_2.Objs.Animal;
 import com.example.app0121_2.Objs.Tom;
 import com.example.app0121_2.scheduler.FeedScheduler;
 
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import static java.sql.Types.NULL;
-
 public class SecondActivity extends AppCompatActivity {
-    private static final String tag = "SecondActivity";
-
+    private static final String LOG_TAG = "SecondActivity";
+    public static Context mContext;
     private TextView textId;
     private TextView textName;
+    public TextView textRemain;
 
     private EditText editTotalFeed;  //입력 먹이양
     private EditText editTime;       //입력 끼니시간
+    public ListView listView;
 
     private FeedScheduler scheduler;
 
     int feed;
     int duration;
 
-    Person person;
-
+    MyAdapter adapter = new MyAdapter();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
-        Animal.InitAnimal(this);
+
+        mContext = this;
 
         initLayout();
         initScheduler();
 
         Intent intent = getIntent();
-        person = (Person) intent.getSerializableExtra("person");
+        Person person = (Person) intent.getSerializableExtra("person");
 
         textId.setText("[" + person.id + "]");
         textName.setText(person.name);
+
+        listView.setAdapter(adapter);
 
     }
 
@@ -68,7 +59,9 @@ public class SecondActivity extends AppCompatActivity {
         editTotalFeed = (EditText) findViewById(R.id.feed_edittext);
         editTime = (EditText) findViewById(R.id.time_edittext);
         textId = findViewById(R.id.secondLayoutId);
+        listView = findViewById(R.id.progressListView);
         textName = findViewById(R.id.secondLayoutName);
+        textRemain = findViewById(R.id.remainFeed);
 
     }
 
@@ -84,7 +77,7 @@ public class SecondActivity extends AppCompatActivity {
     }
 
     public boolean fillCheck(EditText editText) {
-        Log.d(tag, "체크하기");
+        Log.d(LOG_TAG, "체크하기");
 
         if (editText.getText().toString().length() != 0) {
             return true;
@@ -114,5 +107,33 @@ public class SecondActivity extends AppCompatActivity {
         }
 
     }
+
+    public void showProgress(int icon, String name, int feed) {
+
+        adapter.addItem(icon, name, feed);
+
+        Message msg = handler.obtainMessage();
+        handler.sendMessage(msg);
+    }
+
+    //못먹은 동물 표시
+    public void showAnimal(int icon, String name) {
+        adapter.addItem(icon, name);
+
+        Message msg = handler.obtainMessage();
+        handler.sendMessage(msg);
+    }
+
+    public void showText(int remainFeed) {
+
+        textRemain.setText(remainFeed + "개");
+
+    }
+
+    final android.os.Handler handler = new android.os.Handler() {
+        public void handleMessage(Message msg) {
+            adapter.notifyDataSetChanged();
+        }
+    };
 
 }
