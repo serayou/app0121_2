@@ -44,6 +44,9 @@ public class SecondActivity extends AppCompatActivity {
     int feed;
     int duration;
 
+    Person person;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,7 +57,7 @@ public class SecondActivity extends AppCompatActivity {
         initScheduler();
 
         Intent intent = getIntent();
-        Person person = (Person) intent.getSerializableExtra("person");
+        person = (Person) intent.getSerializableExtra("person");
 
         textId.setText("[" + person.id + "]");
         textName.setText(person.name);

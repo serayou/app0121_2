@@ -102,7 +102,6 @@ public class MyAdapter extends BaseAdapter {
 
         switch (viewType) {
             case ITEM_VIEW_TYPE_GREEN:
-                //Log.i(LOG_TAG, "[표시]");
                 holder.greenIcon.setImageResource(listviewItem.getIcon());
                 holder.greenName.setText(listviewItem.getName() + convertView.getResources().getString(R.string.done_text));
                 holder.greenFeed.setText(convertView.getResources().getString(R.string.now_text) + " " + listviewItem.getFeed() + convertView.getResources().getString(R.string.feedG_text));
@@ -137,20 +136,14 @@ public class MyAdapter extends BaseAdapter {
 
     }
 
-
-
     public void showProgress(int icon, String name, int feed) {
         //Log.i(LOG_TAG, "[동물 add] : " + name);
         addItem(icon, name, feed);
-
     }
 
     //못먹은 동물 표시
     public void showAnimal(int icon, String name) {
-
         addItem(icon, name);
-
-
     }
 
 

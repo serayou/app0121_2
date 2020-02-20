@@ -23,8 +23,6 @@ public abstract class Animal {
     public ListView listView;
     public TextView textRemainFeed;
 
-
-
     public final static int DAY_FEED_MAX_COUNT = 3;           //하루 3끼 최대
     public int feedVolume = 0;
     public int eatFeeds = 0;
@@ -36,6 +34,7 @@ public abstract class Animal {
     public static void InitAnimal(Context context) {
         mContext = context;
     }
+
 
     protected void setName(String name) {
         this.name = name;
@@ -60,6 +59,12 @@ public abstract class Animal {
             }
         });
     }
+
+
+
+
+
+
 
     final android.os.Handler handler=new android.os.Handler(){
         public void handleMessage(Message msg){
