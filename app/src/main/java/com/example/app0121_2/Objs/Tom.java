@@ -41,13 +41,13 @@ public class Tom {
 
 
     private boolean checkRemainNextFeed(Animal animal) {
-        int remainFeed =  animal.eat(feed); //동물이 먹고 남은 양을 남아있는것(feed)과 비교
+        int remainFeed =  animal.eat(feed);
         if(feed == remainFeed) {
             return false;
         }
         else {
             feed = remainFeed;
-            return true;    //ture면 다음동물로 넘어감
+            return true;
         }
 
     }

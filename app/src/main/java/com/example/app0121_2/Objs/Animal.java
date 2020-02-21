@@ -20,7 +20,7 @@ import java.util.logging.LogRecord;
 public abstract class Animal {
     private final String LOG_TAG = "Animal";
 
-    public final static int DAY_FEED_MAX_COUNT = 3;           //하루 3끼 최대
+    public final static int DAY_FEED_MAX_COUNT = 3;
     public int feedVolume = 0;
     public int eatFeeds = 0;
     public String name = "";

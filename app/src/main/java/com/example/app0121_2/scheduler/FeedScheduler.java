@@ -52,7 +52,7 @@ public class FeedScheduler extends AppCompatActivity {
                 int dayCount = 0;
                 int dayFeedCount = 0;
                 int totalFeedCount = 0;
-                Animal remainAnimal = null;                                                         //못먹은 동물
+                Animal remainAnimal = null;
 
 
                 while(true && isInterruptOcurred == false) {
