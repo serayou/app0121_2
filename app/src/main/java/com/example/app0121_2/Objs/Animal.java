@@ -51,6 +51,8 @@ public abstract class Animal {
 
             ((SecondActivity)SecondActivity.mContext).showProgress(animalIcon, name, eatFeeds);
 
+
+
             return feed;
         } else {
             Log.i(LOG_TAG, name + "가 먹이를 먹지 못하였습니다.");
