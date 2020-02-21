@@ -1,6 +1,5 @@
 package com.example.app0121_2;
 
-import android.util.Log;
 import android.widget.CheckBox;
 
 public class Savebox {

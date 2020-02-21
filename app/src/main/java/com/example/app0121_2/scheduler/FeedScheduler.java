@@ -9,13 +9,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.app0121_2.Objs.Animal;
 import com.example.app0121_2.Objs.Tom;
+import com.example.app0121_2.R;
+import com.example.app0121_2.RecyclerActivity;
 import com.example.app0121_2.SecondActivity;
 
 
 import static java.lang.Thread.sleep;
 
 
-public class FeedScheduler extends AppCompatActivity {
+public class FeedScheduler {
 
     private final String LOG_TAG = "FeedScheduler";
 
@@ -65,6 +67,7 @@ public class FeedScheduler extends AppCompatActivity {
                     printProgress(dayCount, dayFeedCount, totalFeedCount);
                     remainAnimal=  tom.feedToPets();
                     ((SecondActivity)SecondActivity.mContext).showText(tom.getFeed());
+                    ((RecyclerActivity)RecyclerActivity.mContext).showText(tom.getFeed());
 
                     if(remainAnimal == null) {
                         try {
@@ -96,5 +99,6 @@ public class FeedScheduler extends AppCompatActivity {
         String hungryPet = animal.name;
         Log.i(LOG_TAG, String.format("[결과]남은 먹이양 : %d", remain));
         Log.i(LOG_TAG,  "못 먹는 아이 : " + hungryPet);
+
     }
 }

@@ -13,34 +13,43 @@ import android.view.View;
 
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.app0121_2.Objs.Person;
 import com.google.gson.Gson;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity {
-    private static final String tag="MainActivity";
-    public static final String key1="key1";
+    private static final String tag = "MainActivity";
+    public static final String key1 = "key1";
     public static Context mContext;
+
+    public EditText id;
+    public EditText name;
+    public EditText pos;
+    public CheckBox saveCheckBox;
+    public RadioButton listRadioButton;
+    public RadioButton recyclerRadioButton;
 
     Person person = new Person();
 
     JSONObject jsonObject = new JSONObject();
-    Savebox my_saveCheckBox=new Savebox();
-
+    Savebox my_saveCheckBox = new Savebox();
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mContext=this;
+        mContext = this;
 
         //타이틀 색상 변경
         changeTextColor();
+        layoutInit();
 
 
     }
@@ -52,21 +61,17 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-        @Override
+    @Override
     protected void onResume() {
         super.onResume();
 
-        EditText id = findViewById(R.id.id_editText);
-        EditText name = findViewById(R.id.name_editText);
-        EditText pos = findViewById(R.id.position_editText);
-        CheckBox saveCheckBox = findViewById(R.id.save_checkBox);
 
         my_saveCheckBox.setChecked(saveCheckBox);
 
-        if(my_saveCheckBox.isCheck(saveCheckBox) ){
+        if (my_saveCheckBox.isCheck(saveCheckBox)) {
 
             //저장된 값 띄우기
-            Log.d(tag,"checkbox is checked");
+            Log.d(tag, "checkbox is checked");
 
             getPerson();
 
@@ -74,25 +79,34 @@ public class MainActivity extends AppCompatActivity {
             name.setText(person.name);
             pos.setText(person.position);
 
-        }else{
+        } else {
 
-            Log.d(tag,"checkbox is not checked");
+            Log.d(tag, "checkbox is not checked");
 
         }
 
     }
 
-    private void getPerson(){
-
-        String personObjString=Info.stringGetData(mContext,key1);
-
-        Gson gson=new Gson();
-        person=gson.fromJson(personObjString,Person.class);
-
-        Log.d(tag,"person 사번 :"+person.id+" 이름 : "+person.name+" 직책 : "+person.position);
+    public void layoutInit() {
+        id = findViewById(R.id.id_editText);
+        name = findViewById(R.id.name_editText);
+        pos = findViewById(R.id.position_editText);
+        saveCheckBox = findViewById(R.id.save_checkBox);
+        listRadioButton = findViewById(R.id.list_radioButton);
+        recyclerRadioButton = findViewById(R.id.recycler_radioButton);
 
     }
 
+    private void getPerson() {
+
+        String personObjString = Info.stringGetData(mContext, key1);
+
+        Gson gson = new Gson();
+        person = gson.fromJson(personObjString, Person.class);
+
+        Log.d(tag, "person 사번 :" + person.id + " 이름 : " + person.name + " 직책 : " + person.position);
+
+    }
 
 
     public String toJson() {
@@ -114,39 +128,51 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void changeTextColor(){
+    public void changeTextColor() {
         TextView title = findViewById(R.id.title);
 
-        String s_title=title.getText().toString();
-        Spannable spannable=new SpannableString(s_title);
-        spannable.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.c_text)),0,1,spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        title.setText(spannable,TextView.BufferType.SPANNABLE);
+        String s_title = title.getText().toString();
+        Spannable spannable = new SpannableString(s_title);
+        spannable.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.c_text)), 0, 1, spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        title.setText(spannable, TextView.BufferType.SPANNABLE);
 
     }
 
     public boolean fillCheck(EditText editText) {
         Log.d(tag, "체크하기");
 
-            if (editText.getText().toString().length() != 0) {
-                return true;
-            }else{
-                return false;
+        if (editText.getText().toString().length() != 0) {
+            return true;
+        } else {
+            return false;
         }
     }
 
-    public void cancelMessage(View view){
+    public void cancelMessage(View view) {
         Toast.makeText(this, getString(R.string.cancel_text), Toast.LENGTH_SHORT).show();
         finish();
     }
 
 
+    public void sendInfo() {
+        Intent listIntent = new Intent(this, SecondActivity.class);
+        Intent recyclerIntent = new Intent(this, RecyclerActivity.class);
 
-    public void sendInfo(){
+        if (listRadioButton.isChecked()) {
 
-        Intent intent =new Intent(this,SecondActivity.class);
-        intent.putExtra("person",person);
+            listIntent.putExtra("person", person);
 
-        startActivity(intent);
+            startActivity(listIntent);
+        }
+
+        if (recyclerRadioButton.isChecked()) {
+
+            recyclerIntent.putExtra("person", person);
+
+            startActivity(recyclerIntent);
+
+        }
+
 
     }
 
@@ -158,13 +184,13 @@ public class MainActivity extends AppCompatActivity {
         EditText name = findViewById(R.id.name_editText);
         EditText pos = findViewById(R.id.position_editText);
 
-        if((fillCheck(id) && fillCheck(name) && fillCheck(pos))) {
+        if ((fillCheck(id) && fillCheck(name) && fillCheck(pos))) {
 
             //Log.d(tag, "다 채워짐");
 
             if (saveCheckBox.isChecked()) {
 
-                Info.stringSave(mContext,key1,toJson());
+                Info.stringSave(mContext, key1, toJson());
                 my_saveCheckBox.saveChecked(saveCheckBox);
 
                 Toast.makeText(this, getString(R.string.save_text), Toast.LENGTH_SHORT).show();

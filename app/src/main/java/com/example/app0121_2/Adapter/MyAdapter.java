@@ -1,4 +1,4 @@
-package com.example.app0121_2;
+package com.example.app0121_2.Adapter;
 
 import android.content.Context;
 import android.util.Log;
@@ -14,7 +14,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.app0121_2.ListviewItem;
 import com.example.app0121_2.Objs.Animal;
+import com.example.app0121_2.R;
 
 import java.util.ArrayList;
 

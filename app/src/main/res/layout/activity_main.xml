@@ -73,6 +73,38 @@
             android:layout_height="wrap_content"
             android:text="@string/saveCheckBox_text"
             android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/mode_text"
+            android:layout_marginTop="25dp"
+            android:layout_marginBottom="5dp"
+            android:textSize="30sp" />
+
+        <RadioGroup
+            android:id="@+id/radioGroup"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <RadioButton
+                android:id="@+id/list_radioButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/ListView_text"
+                android:textSize="18sp" />
+
+            <RadioButton
+                android:id="@+id/recycler_radioButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/RecyclerView_text"
+                android:textSize="18sp" />
+
+        </RadioGroup>
+
+
     </LinearLayout>
 
     <LinearLayout

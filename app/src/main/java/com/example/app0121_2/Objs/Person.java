@@ -1,4 +1,4 @@
-package com.example.app0121_2;
+package com.example.app0121_2.Objs;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -16,9 +16,9 @@ public class Person implements Serializable {
     private static final String tag="Person";
 
     private static final long serialVersionUID=1L;
-    String id;
-    String name;
-    String position;
+    public String id;
+    public String name;
+    public String position;
 
 
     public String getId(EditText editText) {

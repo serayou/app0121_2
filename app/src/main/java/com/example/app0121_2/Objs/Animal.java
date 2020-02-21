@@ -1,21 +1,9 @@
 package com.example.app0121_2.Objs;
 
-import android.app.Activity;
-import android.content.Context;
-import android.os.Message;
 import android.util.Log;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.TextView;
 
-import com.example.app0121_2.ListviewItem;
-import com.example.app0121_2.MyAdapter;
-import com.example.app0121_2.R;
+import com.example.app0121_2.RecyclerActivity;
 import com.example.app0121_2.SecondActivity;
-
-import java.util.ArrayList;
-import java.util.logging.Handler;
-import java.util.logging.LogRecord;
 
 public abstract class Animal {
     private final String LOG_TAG = "Animal";
@@ -50,6 +38,9 @@ public abstract class Animal {
             Log.i(LOG_TAG, "남은 먹이 양 : " + feed);
 
             ((SecondActivity)SecondActivity.mContext).showProgress(animalIcon, name, eatFeeds);
+            ((RecyclerActivity)RecyclerActivity.mContext).showProgress(animalIcon, name, eatFeeds);
+
+
 
 
 
@@ -58,7 +49,7 @@ public abstract class Animal {
             Log.i(LOG_TAG, name + "가 먹이를 먹지 못하였습니다.");
 
             ((SecondActivity)SecondActivity.mContext).showAnimal(animalIcon, name);
-
+            ((RecyclerActivity)RecyclerActivity.mContext).showAnimal(animalIcon, name);
             return feed;
         }
     }

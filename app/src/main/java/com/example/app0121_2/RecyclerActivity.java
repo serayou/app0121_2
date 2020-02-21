@@ -1,7 +1,5 @@
 package com.example.app0121_2;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,13 +12,15 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.app0121_2.Adapter.MyAdapter;
 import com.example.app0121_2.Objs.Person;
 import com.example.app0121_2.Objs.Tom;
 import com.example.app0121_2.scheduler.FeedScheduler;
 
-public class SecondActivity extends AppCompatActivity {
-    private static final String LOG_TAG = "SecondActivity";
+public class RecyclerActivity extends AppCompatActivity {
+    private static final String LOG_TAG = "RecyclerActivity";
     public static Context mContext;
     private TextView textId;
     private TextView textName;
@@ -40,7 +40,7 @@ public class SecondActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_second);
+        setContentView(R.layout.activity_recycler);
 
         mContext = this;
 
@@ -101,10 +101,10 @@ public class SecondActivity extends AppCompatActivity {
 
         } else {
             if (!fillCheck(editTotalFeed)) {
-                Toast.makeText(SecondActivity.this, "먹이 양을 입력해주세요!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(RecyclerActivity.this, "먹이 양을 입력해주세요!", Toast.LENGTH_SHORT).show();
             }
             if (!fillCheck(editTime)) {
-                Toast.makeText(SecondActivity.this, "끼니시간을 입력해주세요!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(RecyclerActivity.this, "끼니시간을 입력해주세요!", Toast.LENGTH_SHORT).show();
             }
         }
 

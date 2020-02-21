@@ -19,4 +19,7 @@
     <string name="ndone_text">가 식사를 하지 못했습니다. </string>
     <string name="now_text">지금까지   </string>
     <string name="feedG_text">g 먹었습니다. </string>
+    <string name="ListView_text">ListView Mode </string>
+    <string name="RecyclerView_text">RecyclerView Mode </string>
+    <string name="mode_text">MODE </string>
 </resources>
