@@ -19,7 +19,7 @@ import java.util.ArrayList;
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
     private final String LOG_TAG = "RecyclerAdapter";
 
-    private ArrayList<ListviewItem> mlistviewItem;
+    private ArrayList<ListviewItem> mListviewItem;
 
     public static final int ITEM_VIEW_TYPE_GREEN = 0;
     public static final int ITEM_VIEW_TYPE_RED = 1;
@@ -44,7 +44,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     }
 
     public RecyclerAdapter(ArrayList<ListviewItem> list) {
-        mlistviewItem = list;
+        mListviewItem = list;
     }
 
     @NonNull
@@ -53,18 +53,14 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         Context context = parent.getContext();
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view=null;
-      //  int viewType = getItemViewType(position);
-
 
         switch (viewType) {
             case ITEM_VIEW_TYPE_GREEN:
                 view = inflater.inflate(R.layout.item1, parent, false);
-
                 break;
 
             case ITEM_VIEW_TYPE_RED:
                 view = inflater.inflate(R.layout.item2, parent, false);
-
                 break;
         }
 
@@ -76,15 +72,13 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     public void onBindViewHolder(RecyclerAdapter.ViewHolder holder, int position) {
 
         int viewType = getItemViewType(position);
-        ListviewItem listviewItem = mlistviewItem.get(position);
-
-
+        ListviewItem listviewItem = mListviewItem.get(position);
 
         switch (viewType) {
             case ITEM_VIEW_TYPE_GREEN:
                 holder.greenIcon.setImageResource(listviewItem.getIcon());
                 holder.greenName.setText(listviewItem.getName()+"가 식사를 마쳤습니다!");
-                holder.greenFeed.setText("지금까지 "+String.valueOf(listviewItem.getFeed())+"g 먹었습니다.");
+                holder.greenFeed.setText("지금까지 "+listviewItem.getFeed()+"g 먹었습니다.");
 
                 break;
 
@@ -100,13 +94,13 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
     @Override
     public int getItemCount() {
-        return mlistviewItem.size();
+        return mListviewItem.size();
     }
 //
 //
     @Override
     public int getItemViewType(int position) {
-        return mlistviewItem.get(position).getType();
+        return mListviewItem.get(position).getType();
     }
 //
 //    @Override
@@ -123,7 +117,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         item.setName(name);
         item.setFeed(feed);
 
-        mlistviewItem.add(item);
+        mListviewItem.add(item);
 
     }
 
@@ -133,7 +127,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         item.setIcon(icon);
         item.setName(name);
 
-        mlistviewItem.add(item);
+        mListviewItem.add(item);
 
     }
 

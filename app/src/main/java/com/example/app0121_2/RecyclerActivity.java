@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -52,8 +53,6 @@ public class RecyclerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recycler);
 
-        //recyclerView.setHasFixedSize(true);
-
         mContext = this;
 
         initLayout();
@@ -67,12 +66,14 @@ public class RecyclerActivity extends AppCompatActivity {
 
         flag=2;
 
-        //리사이클뷰
+        recyclerView.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));
+
+
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(this);
-        //recyclerView.smoothScrollToPosition(list.size()-1);
 
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter);
+
     }
 
     private void initLayout() {
@@ -160,6 +161,7 @@ public class RecyclerActivity extends AppCompatActivity {
 
     final Handler handler = new Handler() {
         public void handleMessage(Message msg) {
+            recyclerView.smoothScrollToPosition(adapter.getItemCount()-1);
             adapter.notifyDataSetChanged();
         }
     };

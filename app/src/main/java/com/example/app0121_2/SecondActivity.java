@@ -142,6 +142,7 @@ public class SecondActivity extends AppCompatActivity {
 
     final Handler handler = new Handler() {
         public void handleMessage(Message msg) {
+            listView.smoothScrollToPosition(adapter.getCount()-1);
             adapter.notifyDataSetChanged();
         }
     };
