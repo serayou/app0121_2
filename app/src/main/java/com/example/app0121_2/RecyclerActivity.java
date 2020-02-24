@@ -8,16 +8,23 @@ import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.app0121_2.Adapter.MyAdapter;
+import com.example.app0121_2.Adapter.RecyclerAdapter;
 import com.example.app0121_2.Objs.Person;
 import com.example.app0121_2.Objs.Tom;
 import com.example.app0121_2.scheduler.FeedScheduler;
+
+import java.util.ArrayList;
+import java.util.Dictionary;
 
 public class RecyclerActivity extends AppCompatActivity {
     private static final String LOG_TAG = "RecyclerActivity";
@@ -28,7 +35,7 @@ public class RecyclerActivity extends AppCompatActivity {
 
     private EditText editTotalFeed;  //입력 먹이양
     private EditText editTime;       //입력 끼니시간
-    public ListView listView;
+    public RecyclerView recyclerView;
 
     private FeedScheduler scheduler;
 
@@ -36,12 +43,16 @@ public class RecyclerActivity extends AppCompatActivity {
     int duration;
     public int flag;
 
-    MyAdapter adapter = new MyAdapter();
+
+    ArrayList<ListviewItem> list=new ArrayList<>();
+    RecyclerAdapter adapter =new RecyclerAdapter(list);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recycler);
+
+        //recyclerView.setHasFixedSize(true);
 
         mContext = this;
 
@@ -54,16 +65,21 @@ public class RecyclerActivity extends AppCompatActivity {
         textId.setText("[" + person.id + "]");
         textName.setText(person.name);
 
-        listView.setAdapter(adapter);
         flag=2;
 
+        //리사이클뷰
+        LinearLayoutManager linearLayoutManager=new LinearLayoutManager(this);
+        //recyclerView.smoothScrollToPosition(list.size()-1);
+
+        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.setAdapter(adapter);
     }
 
     private void initLayout() {
         editTotalFeed = (EditText) findViewById(R.id.feed_edittext);
         editTime = (EditText) findViewById(R.id.time_edittext);
         textId = findViewById(R.id.secondLayoutId);
-        listView = findViewById(R.id.progressListView);
+        recyclerView = findViewById(R.id.progressRecyclerView);
         textName = findViewById(R.id.secondLayoutName);
         textRemain = findViewById(R.id.remainFeed);
 
@@ -115,6 +131,8 @@ public class RecyclerActivity extends AppCompatActivity {
     public void showProgress(int icon, String name, int feed) {
 
         adapter.addItem(icon, name, feed);
+
+
 
         Message msg = handler.obtainMessage();
         handler.sendMessage(msg);

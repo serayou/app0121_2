@@ -122,19 +122,20 @@
             android:textSize="18sp" />
     </LinearLayout>
 
-    <ListView
-        android:id="@+id/progressListView"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/progressRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:scrollbars="vertical"
         android:layout_marginLeft="7dp"
         android:layout_marginTop="7dp"
         android:layout_marginRight="7dp"
         android:layout_marginBottom="10dp"
         android:background="#CAAD9C"
-        android:divider="@color/dividerColor"
-        android:dividerHeight="3dp"
-        android:stackFromBottom="true"
-        android:transcriptMode="alwaysScroll"/>
+        />
+
+
+
 
 
 </LinearLayout>
