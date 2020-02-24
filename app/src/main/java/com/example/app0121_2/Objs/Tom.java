@@ -23,15 +23,15 @@ public class Tom {
         return this.feed;
     }
 
-    public Animal feedToPets() {
+    public Animal feedToPets(int flag) {
         Log.i(LOG_TAG, "Tom이 먹이를 줍니다.");
-        if(checkRemainNextFeed(cat) == false) {
+        if(checkRemainNextFeed(cat,flag) == false) {
             return cat;
         }
-        else if(checkRemainNextFeed(sparrow) == false) {
+        else if(checkRemainNextFeed(sparrow,flag) == false) {
             return sparrow;
         }
-        else if(checkRemainNextFeed(turtle) == false) {
+        else if(checkRemainNextFeed(turtle,flag) == false) {
             return turtle;
         }
         else {
@@ -40,8 +40,8 @@ public class Tom {
     }
 
 
-    private boolean checkRemainNextFeed(Animal animal) {
-        int remainFeed =  animal.eat(feed);
+    private boolean checkRemainNextFeed(Animal animal,int flag) {
+        int remainFeed =  animal.eat(feed,flag);
         if(feed == remainFeed) {
             return false;
         }

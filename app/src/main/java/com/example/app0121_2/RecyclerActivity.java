@@ -34,6 +34,7 @@ public class RecyclerActivity extends AppCompatActivity {
 
     int feed;
     int duration;
+    public int flag;
 
     MyAdapter adapter = new MyAdapter();
 
@@ -54,6 +55,7 @@ public class RecyclerActivity extends AppCompatActivity {
         textName.setText(person.name);
 
         listView.setAdapter(adapter);
+        flag=2;
 
     }
 
@@ -75,7 +77,7 @@ public class RecyclerActivity extends AppCompatActivity {
     }
 
     private void runScheduler() {
-        scheduler.startScheduleToFeed();
+        scheduler.startScheduleToFeed(flag);
     }
 
     public boolean fillCheck(EditText editText) {

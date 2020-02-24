@@ -44,7 +44,7 @@ public class FeedScheduler {
         Log.i(LOG_TAG, "먹이 공급을 중단합니다...");
     }
 
-    public void startScheduleToFeed() {
+    public void startScheduleToFeed(final int flag) {
 
         new Thread(new Runnable() {
             @Override
@@ -65,9 +65,15 @@ public class FeedScheduler {
                     dayFeedCount++;
                     totalFeedCount++;
                     printProgress(dayCount, dayFeedCount, totalFeedCount);
-                    remainAnimal=  tom.feedToPets();
-                    ((SecondActivity)SecondActivity.mContext).showText(tom.getFeed());
-                    ((RecyclerActivity)RecyclerActivity.mContext).showText(tom.getFeed());
+                    remainAnimal=  tom.feedToPets(flag);
+
+
+                    if(flag==1){
+                        ((SecondActivity)SecondActivity.mContext).showText(tom.getFeed());
+                    }else if(flag==2){
+                        ((RecyclerActivity)RecyclerActivity.mContext).showText(tom.getFeed());
+                    }
+
 
                     if(remainAnimal == null) {
                         try {

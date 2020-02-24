@@ -28,7 +28,7 @@ public abstract class Animal {
         animalIcon = icon;
     }
 
-    public int eat(int feed) {
+    public int eat(int feed,int flag) {
 
         if (feed >= feedVolume) {
             Log.i(LOG_TAG, name + "가 먹이를 먹었습니다.");
@@ -37,19 +37,22 @@ public abstract class Animal {
             feed -= feedVolume;
             Log.i(LOG_TAG, "남은 먹이 양 : " + feed);
 
-            ((SecondActivity)SecondActivity.mContext).showProgress(animalIcon, name, eatFeeds);
-            ((RecyclerActivity)RecyclerActivity.mContext).showProgress(animalIcon, name, eatFeeds);
-
-
-
+            if(flag==1){
+                ((SecondActivity)SecondActivity.mContext).showProgress(animalIcon, name, eatFeeds);
+            }else if(flag==2){
+                ((RecyclerActivity)RecyclerActivity.mContext).showProgress(animalIcon, name, eatFeeds);
+            }
 
 
             return feed;
         } else {
             Log.i(LOG_TAG, name + "가 먹이를 먹지 못하였습니다.");
 
-            ((SecondActivity)SecondActivity.mContext).showAnimal(animalIcon, name);
-            ((RecyclerActivity)RecyclerActivity.mContext).showAnimal(animalIcon, name);
+            if(flag==1){
+                ((SecondActivity)SecondActivity.mContext).showAnimal(animalIcon, name);
+            }else if(flag==2){
+                ((RecyclerActivity)RecyclerActivity.mContext).showAnimal(animalIcon, name);
+            }
             return feed;
         }
     }
