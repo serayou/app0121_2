@@ -39,6 +39,7 @@ public abstract class Animal {
 
             if(flag==1){
                 ((SecondActivity)SecondActivity.mContext).showProgress(animalIcon, name, eatFeeds);
+
             }else if(flag==2){
                 ((RecyclerActivity)RecyclerActivity.mContext).showProgress(animalIcon, name, eatFeeds);
             }

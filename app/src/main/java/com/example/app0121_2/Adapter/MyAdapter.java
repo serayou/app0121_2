@@ -1,6 +1,8 @@
 package com.example.app0121_2.Adapter;
 
 import android.content.Context;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -80,7 +82,6 @@ public class MyAdapter extends BaseAdapter {
 
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-
             switch (viewType) {
                 case ITEM_VIEW_TYPE_GREEN:
                     convertView = inflater.inflate(R.layout.item1, parent, false);
@@ -99,10 +100,8 @@ public class MyAdapter extends BaseAdapter {
             }
             convertView.setTag(holder);
         } else {
-
             holder = (ListviewHolder) convertView.getTag();
         }
-
 
         switch (viewType) {
             case ITEM_VIEW_TYPE_GREEN:
@@ -139,5 +138,6 @@ public class MyAdapter extends BaseAdapter {
         listViewItemList.add(item);
 
     }
+
 
 }

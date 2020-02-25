@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -44,7 +45,6 @@ public class RecyclerActivity extends AppCompatActivity {
     int duration;
     public int flag;
 
-
     ArrayList<ListviewItem> list=new ArrayList<>();
     RecyclerAdapter adapter =new RecyclerAdapter(list);
 
@@ -67,10 +67,7 @@ public class RecyclerActivity extends AppCompatActivity {
         flag=2;
 
         recyclerView.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));
-
-
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(this);
-
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter);
 
@@ -83,6 +80,8 @@ public class RecyclerActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.progressRecyclerView);
         textName = findViewById(R.id.secondLayoutName);
         textRemain = findViewById(R.id.remainFeed);
+        ((Button)findViewById(R.id.stop_button)).setOnClickListener(clickListener);
+
 
     }
 
@@ -96,6 +95,7 @@ public class RecyclerActivity extends AppCompatActivity {
     private void runScheduler() {
         scheduler.startScheduleToFeed(flag);
     }
+    private void stopScheduler() { scheduler.stopSchedule(); }
 
     public boolean fillCheck(EditText editText) {
         Log.d(LOG_TAG, "체크하기");
@@ -106,6 +106,24 @@ public class RecyclerActivity extends AppCompatActivity {
             return false;
         }
     }
+    private View.OnClickListener clickListener=new View.OnClickListener(){
+        @Override
+        public void onClick(View v) {
+
+            stopScheduler();
+
+            editTotalFeed.getText().clear();
+            editTime.getText().clear();
+            feed=0;
+            duration=0;
+
+            list.clear();
+
+            showText(0);
+
+
+        }
+    };
 
     public void startButtonOnClick(View view) {
 
@@ -130,21 +148,14 @@ public class RecyclerActivity extends AppCompatActivity {
     }
 
     public void showProgress(int icon, String name, int feed) {
-
         adapter.addItem(icon, name, feed);
 
-
-
-        Message msg = handler.obtainMessage();
-        handler.sendMessage(msg);
     }
 
     //못먹은 동물 표시
     public void showAnimal(int icon, String name) {
         adapter.addItem(icon, name);
 
-        Message msg = handler.obtainMessage();
-        handler.sendMessage(msg);
     }
 
     public void showText(final int remainFeed) {
@@ -156,14 +167,14 @@ public class RecyclerActivity extends AppCompatActivity {
             }
         });
 
-
     }
 
-    final Handler handler = new Handler() {
-        public void handleMessage(Message msg) {
-            recyclerView.smoothScrollToPosition(adapter.getItemCount()-1);
-            adapter.notifyDataSetChanged();
-        }
-    };
+//    final Handler handler = new Handler() {
+//        public void handleMessage(Message msg) {
+//            recyclerView.smoothScrollToPosition(adapter.getItemCount()-1);
+//            adapter.notifyDataSetChanged();
+//        }
+//    };
+
 
 }
