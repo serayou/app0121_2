@@ -23,7 +23,7 @@ public class FeedScheduler {
 
     private Tom tom;
     private int duration = 0;
-    private boolean isInterruptOcurred =  false;
+    private boolean isInterruptOcurred = false;
 
     public void setManager(Tom tom) {
         this.tom = tom;
@@ -32,7 +32,7 @@ public class FeedScheduler {
 
     public void setFeed(int feed) {
         tom.saveFeed(feed);
-        Log.i(LOG_TAG,  String.format("먹이가 집사에게  주어졌습니다. 총 %d 그램 입니다.", feed));
+        Log.i(LOG_TAG, String.format("먹이가 집사에게  주어졌습니다. 총 %d 그램 입니다.", feed));
     }
 
     public void setDuration(int duration) {
@@ -41,6 +41,13 @@ public class FeedScheduler {
 
     public void stopSchedule() {
         isInterruptOcurred = true;
+
+        tom.saveFeed(0);
+        duration = 0;
+
+        //지금까지 먹은양은 초기화 안되고 누적됨,지금까지 먹은 양 eatFeeds
+
+
         Log.i(LOG_TAG, "먹이 공급을 중단합니다...");
     }
 
@@ -57,25 +64,25 @@ public class FeedScheduler {
                 Animal remainAnimal = null;
 
 
-                while(true && isInterruptOcurred == false) {
-                    if(dayFeedCount % Animal.DAY_FEED_MAX_COUNT == 0) {
+                while (true && isInterruptOcurred == false) {
+                    if (dayFeedCount % Animal.DAY_FEED_MAX_COUNT == 0) {
                         dayCount++;
                         dayFeedCount = 0;
                     }
                     dayFeedCount++;
                     totalFeedCount++;
                     printProgress(dayCount, dayFeedCount, totalFeedCount);
-                    remainAnimal=  tom.feedToPets(flag);
+                    remainAnimal = tom.feedToPets(flag);
 
 
-                    if(flag==1){
-                        ((SecondActivity)SecondActivity.mContext).showText(tom.getFeed());
-                    }else if(flag==2){
-                        ((RecyclerActivity)RecyclerActivity.mContext).showText(tom.getFeed());
+                    if (flag == 1) {
+                        ((SecondActivity) SecondActivity.mContext).showText(tom.getFeed());
+                    } else if (flag == 2) {
+                        ((RecyclerActivity) RecyclerActivity.mContext).showText(tom.getFeed());
                     }
 
 
-                    if(remainAnimal == null) {
+                    if (remainAnimal == null) {
                         try {
                             sleep(duration);
                         } catch (InterruptedException e) {
@@ -88,7 +95,7 @@ public class FeedScheduler {
                     }
                 }
 
-                if(isInterruptOcurred) {
+                if (isInterruptOcurred) {
                     isInterruptOcurred = false;
                 }
             }
@@ -104,7 +111,7 @@ public class FeedScheduler {
     private void printResult(Animal animal, int remain) {
         String hungryPet = animal.name;
         Log.i(LOG_TAG, String.format("[결과]남은 먹이양 : %d", remain));
-        Log.i(LOG_TAG,  "못 먹는 아이 : " + hungryPet);
+        Log.i(LOG_TAG, "못 먹는 아이 : " + hungryPet);
 
     }
 }

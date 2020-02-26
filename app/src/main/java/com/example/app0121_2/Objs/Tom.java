@@ -20,6 +20,7 @@ public class Tom {
     }
 
     public int getFeed() {
+
         return this.feed;
     }
 

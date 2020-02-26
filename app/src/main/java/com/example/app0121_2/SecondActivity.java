@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.app0121_2.Adapter.MyAdapter;
+import com.example.app0121_2.Objs.Animal;
 import com.example.app0121_2.Objs.Person;
 import com.example.app0121_2.Objs.Tom;
 import com.example.app0121_2.scheduler.FeedScheduler;
@@ -40,6 +41,7 @@ public class SecondActivity extends AppCompatActivity {
 
     MyAdapter adapter = new MyAdapter();
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,7 +59,7 @@ public class SecondActivity extends AppCompatActivity {
         textName.setText(person.name);
 
         listView.setAdapter(adapter);
-        flag=1;
+        flag = 1;
 
     }
 
@@ -68,7 +70,7 @@ public class SecondActivity extends AppCompatActivity {
         listView = findViewById(R.id.progressListView);
         textName = findViewById(R.id.secondLayoutName);
         textRemain = findViewById(R.id.remainFeed);
-        ((Button)findViewById(R.id.stop_button)).setOnClickListener(clickListener);
+        //       ((Button) findViewById(R.id.stop_button)).setOnClickListener(clickListener);
 
     }
 
@@ -82,7 +84,10 @@ public class SecondActivity extends AppCompatActivity {
     private void runScheduler() {
         scheduler.startScheduleToFeed(flag);
     }
-    private void stopScheduler() { scheduler.stopSchedule(); }
+
+    private void stopScheduler() {
+        scheduler.stopSchedule();
+    }
 
 
     public boolean fillCheck(EditText editText) {
@@ -94,26 +99,47 @@ public class SecondActivity extends AppCompatActivity {
             return false;
         }
     }
-    private View.OnClickListener clickListener=new View.OnClickListener(){
-        @Override
-        public void onClick(View v) {
-            stopScheduler();
 
-            editTotalFeed.getText().clear();
-            editTime.getText().clear();
-            feed=0;
-            duration=0;
 
-            adapter.listViewItemList.clear();
-
-            showText(0);
+//    private View.OnClickListener clickListener = new View.OnClickListener() {
+//        @Override
+//        public void onClick(View v) {
+//            stopScheduler();
+//
+//            editTotalFeed.getText().clear();
+//            editTime.getText().clear();
+//            feed = 0;
+//            duration = 0;
+//            showText(0);
+//           // eatFeeds = 0;
+//
+//
+//            adapter.listViewItemList.clear();
 //            Message msg = handler.obtainMessage();
 //            handler.sendMessage(msg);
-            notiHandler();
+//
+//
+//            Log.i(LOG_TAG, "먹이공급 초기화..");
+//
+//
+//        }
+//    };
+
+    public void stopButtonOnClick(View view) {
+        Log.i(LOG_TAG, "리스트뷰 : " + adapter.listViewItemList.size());
+        stopScheduler();
+        editTotalFeed.getText().clear();
+        editTime.getText().clear();
+        showText(0);
+        //       adapter.listViewItemList.clear();
+        adapter.clearItem();
 
 
-        }
-    };
+        Message msg = handler.obtainMessage();
+        handler.sendMessage(msg);
+
+
+    }
 
 
     public void startButtonOnClick(View view) {
@@ -140,7 +166,7 @@ public class SecondActivity extends AppCompatActivity {
 
     public void showProgress(int icon, String name, int feed) {
         adapter.addItem(icon, name, feed);
-        notiHandler();
+
 //        Message msg = handler.obtainMessage();
 //        handler.sendMessage(msg);
     }
@@ -148,11 +174,10 @@ public class SecondActivity extends AppCompatActivity {
     //못먹은 동물 표시
     public void showAnimal(int icon, String name) {
         adapter.addItem(icon, name);
-        notiHandler();
+
 //        Message msg = handler.obtainMessage();
 //        handler.sendMessage(msg);
     }
-
 
 
     public void showText(final int remainFeed) {
@@ -160,35 +185,30 @@ public class SecondActivity extends AppCompatActivity {
             @Override
             public void run() {
                 textRemain.setText(remainFeed + "개");
-                Log.i(LOG_TAG, String.format("[실시간 남은 먹이양] : "+ remainFeed));
+                Log.i(LOG_TAG, String.format("[실시간 남은 먹이양] : " + remainFeed));
             }
         });
 
     }
 
 
-//    final Handler handler = new Handler() {
-//        public void handleMessage(Message msg) {
-//            Log.i(LOG_TAG,"[handler]전달");
-//            listView.smoothScrollToPosition(adapter.getCount()-1);
-//            adapter.notifyDataSetChanged();
-//        }
-//    };
+    final Handler handler = new Handler() {
+        public void handleMessage(Message msg) {
+            adapter.notifyDataSetChanged();
+        }
+    };
 
-    public void notiHandler(){
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-
-                listView.smoothScrollToPosition(adapter.getCount()-1);
-                adapter.notifyDataSetChanged();
-            }
-        });
-
-    }
-
-
-
+//    public void notiHandler(){
+//        runOnUiThread(new Runnable() {
+//            @Override
+//            public void run() {
+//
+//                listView.smoothScrollToPosition(adapter.getCount()-1);
+//                adapter.notifyDataSetChanged();
+//            }
+//        });
+//
+//    }
 
 
 }

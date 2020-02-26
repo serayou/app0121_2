@@ -120,6 +120,8 @@ public class RecyclerActivity extends AppCompatActivity {
             list.clear();
 
             showText(0);
+            Message msg = handler.obtainMessage();
+            handler.sendMessage(msg);
 
 
         }
@@ -168,6 +170,13 @@ public class RecyclerActivity extends AppCompatActivity {
         });
 
     }
+
+
+    final Handler handler = new Handler() {
+        public void handleMessage(Message msg) {
+            adapter.notifyDataSetChanged();
+        }
+    };
 
 //    final Handler handler = new Handler() {
 //        public void handleMessage(Message msg) {

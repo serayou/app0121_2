@@ -60,4 +60,9 @@ public abstract class Animal {
 
     public abstract void move();
 
+    public void feedInit(){
+
+        eatFeeds=0;
+    }
+
 }

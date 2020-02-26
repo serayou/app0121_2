@@ -19,6 +19,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.app0121_2.ListviewItem;
 import com.example.app0121_2.Objs.Animal;
 import com.example.app0121_2.R;
+import com.example.app0121_2.RecyclerActivity;
+import com.example.app0121_2.SecondActivity;
 
 import java.util.ArrayList;
 
@@ -31,7 +33,7 @@ public class MyAdapter extends BaseAdapter {
 
     public ArrayList<ListviewItem> listViewItemList = new ArrayList<>();
 
-    public MyAdapter(){
+    public MyAdapter() {
 
     }
 
@@ -47,7 +49,9 @@ public class MyAdapter extends BaseAdapter {
 
     @Override
     public int getItemViewType(int position) {
+
         return listViewItemList.get(position).getType();
+
     }
 
     @Override
@@ -126,6 +130,7 @@ public class MyAdapter extends BaseAdapter {
         item.setFeed(feed);
 
         listViewItemList.add(item);
+        notiHandler();
 
     }
 
@@ -136,8 +141,26 @@ public class MyAdapter extends BaseAdapter {
         item.setName(name);
 
         listViewItemList.add(item);
+        notiHandler();
 
     }
 
+    public void clearItem() {
+        listViewItemList.clear();
+
+        notiHandler();
+    }
+
+    public void notiHandler() {
+        ((SecondActivity) SecondActivity.mContext).runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+
+                ((SecondActivity) SecondActivity.mContext).listView.smoothScrollToPosition(getCount() - 1);
+                notifyDataSetChanged();
+            }
+        });
+
+    }
 
 }
