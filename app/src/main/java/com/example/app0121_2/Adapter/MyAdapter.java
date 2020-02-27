@@ -49,9 +49,7 @@ public class MyAdapter extends BaseAdapter {
 
     @Override
     public int getItemViewType(int position) {
-
         return listViewItemList.get(position).getType();
-
     }
 
     @Override
@@ -131,7 +129,6 @@ public class MyAdapter extends BaseAdapter {
 
         listViewItemList.add(item);
         notiHandler();
-
     }
 
     public void addItem(int icon, String name) {
@@ -142,20 +139,12 @@ public class MyAdapter extends BaseAdapter {
 
         listViewItemList.add(item);
         notiHandler();
-
-    }
-
-    public void clearItem() {
-        listViewItemList.clear();
-
-        notiHandler();
     }
 
     public void notiHandler() {
         ((SecondActivity) SecondActivity.mContext).runOnUiThread(new Runnable() {
             @Override
             public void run() {
-
                 ((SecondActivity) SecondActivity.mContext).listView.smoothScrollToPosition(getCount() - 1);
                 notifyDataSetChanged();
             }

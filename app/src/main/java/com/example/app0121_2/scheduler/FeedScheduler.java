@@ -46,8 +46,6 @@ public class FeedScheduler {
         duration = 0;
 
         Log.i(LOG_TAG, "먹이 공급을 중단합니다...");
-
-        isInterruptOcurred = false;
     }
 
     public void startScheduleToFeed(final int flag) {
@@ -73,13 +71,11 @@ public class FeedScheduler {
                     printProgress(dayCount, dayFeedCount, totalFeedCount);
                     remainAnimal = tom.feedToPets(flag);
 
-
                     if (flag == 1) {
                         ((SecondActivity) SecondActivity.mContext).showText(tom.getFeed());
                     } else if (flag == 2) {
                         ((RecyclerActivity) RecyclerActivity.mContext).showText(tom.getFeed());
                     }
-
 
                     if (remainAnimal == null) {
                         try {
@@ -90,6 +86,7 @@ public class FeedScheduler {
                     } else {
                         remainFeed = tom.getFeed();
                         printResult(remainAnimal, remainFeed);
+                        Log.i(LOG_TAG,"[red]남은 동물 표시");
                         break;
                     }
                 }
@@ -111,6 +108,5 @@ public class FeedScheduler {
         String hungryPet = animal.name;
         Log.i(LOG_TAG, String.format("[결과]남은 먹이양 : %d", remain));
         Log.i(LOG_TAG, "못 먹는 아이 : " + hungryPet);
-
     }
 }

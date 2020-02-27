@@ -1,10 +1,12 @@
 package com.example.app0121_2;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -67,10 +69,32 @@ public class RecyclerActivity extends AppCompatActivity {
         flag=2;
 
         recyclerView.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));
-        LinearLayoutManager linearLayoutManager=new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.setLayoutManager(new WrapContentLinearLayoutManager(mContext,LinearLayoutManager.VERTICAL,false));
         recyclerView.setAdapter(adapter);
+    }
 
+    private static class WrapContentLinearLayoutManager extends LinearLayoutManager{
+        @Override
+        public void onLayoutChildren(RecyclerView.Recycler recycler, RecyclerView.State state) {
+            try {
+                super.onLayoutChildren(recycler, state);
+            }catch (IndexOutOfBoundsException e){
+                Log.e(LOG_TAG,"meet a IOOBE in RecyclerView");
+            }
+        }
+        public WrapContentLinearLayoutManager(Context context){
+            super(context);
+        }
+        public WrapContentLinearLayoutManager(Context context, int orientation, boolean reverseLayout){
+            super(context,orientation,reverseLayout);
+        }
+        public WrapContentLinearLayoutManager(Context context, AttributeSet attributeSet,int defStyleArr,int defStyleRes ){
+            super(context,attributeSet,defStyleArr,defStyleRes);
+        }
+        @Override
+        public boolean supportsPredictiveItemAnimations() {
+            return false;
+        }
     }
 
     private void initLayout() {
@@ -80,9 +104,7 @@ public class RecyclerActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.progressRecyclerView);
         textName = findViewById(R.id.secondLayoutName);
         textRemain = findViewById(R.id.remainFeed);
-        ((Button)findViewById(R.id.stop_button)).setOnClickListener(clickListener);
-
-
+//        ((Button)findViewById(R.id.stop_button)).setOnClickListener(clickListener);
     }
 
     private void initScheduler() {
@@ -98,37 +120,48 @@ public class RecyclerActivity extends AppCompatActivity {
     private void stopScheduler() { scheduler.stopSchedule(); }
 
     public boolean fillCheck(EditText editText) {
-        Log.d(LOG_TAG, "체크하기");
-
         if (editText.getText().toString().length() != 0) {
             return true;
         } else {
             return false;
         }
     }
-    private View.OnClickListener clickListener=new View.OnClickListener(){
-        @Override
-        public void onClick(View v) {
+//    private View.OnClickListener clickListener=new View.OnClickListener(){
+//        @Override
+//        public void onClick(View v) {
+//
+//            stopScheduler();
+//
+//            editTotalFeed.getText().clear();
+//            editTime.getText().clear();
+//            feed=0;
+//            duration=0;
+//
+//            list.clear();
+//
+//            showText(0);
+//            Message msg = handler.obtainMessage();
+//            handler.sendMessage(msg);
+//
+//
+//        }
+//    };
+    public void stopButtonOnClick(View view) {
+        stopScheduler();
 
-            stopScheduler();
+        editTotalFeed.getText().clear();
+        editTime.getText().clear();
+        showText(0);
 
-            editTotalFeed.getText().clear();
-            editTime.getText().clear();
-            feed=0;
-            duration=0;
+        list.clear();
+        Message msg = handler.obtainMessage();
+        handler.sendMessage(msg);
 
-            list.clear();
+        Log.i(LOG_TAG, "먹이공급 초기화..");
 
-            showText(0);
-            Message msg = handler.obtainMessage();
-            handler.sendMessage(msg);
-
-
-        }
-    };
-
+    }
     public void startButtonOnClick(View view) {
-
+        initScheduler();
         if ((fillCheck(editTotalFeed) && fillCheck(editTime))) {
 
             feed = Integer.parseInt(editTotalFeed.getText().toString());
@@ -146,18 +179,14 @@ public class RecyclerActivity extends AppCompatActivity {
                 Toast.makeText(RecyclerActivity.this, "끼니시간을 입력해주세요!", Toast.LENGTH_SHORT).show();
             }
         }
-
     }
 
     public void showProgress(int icon, String name, int feed) {
         adapter.addItem(icon, name, feed);
-
     }
 
-    //못먹은 동물 표시
     public void showAnimal(int icon, String name) {
         adapter.addItem(icon, name);
-
     }
 
     public void showText(final int remainFeed) {
@@ -168,22 +197,12 @@ public class RecyclerActivity extends AppCompatActivity {
                 Log.i(LOG_TAG, String.format("[실시간 남은 먹이양] : "+ remainFeed));
             }
         });
-
     }
-
 
     final Handler handler = new Handler() {
         public void handleMessage(Message msg) {
             adapter.notifyDataSetChanged();
         }
     };
-
-//    final Handler handler = new Handler() {
-//        public void handleMessage(Message msg) {
-//            recyclerView.smoothScrollToPosition(adapter.getItemCount()-1);
-//            adapter.notifyDataSetChanged();
-//        }
-//    };
-
 
 }

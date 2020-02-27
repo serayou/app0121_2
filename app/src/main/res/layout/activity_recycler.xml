@@ -107,6 +107,7 @@
                 android:layout_marginTop="5dp"
                 android:layout_weight="1"
                 android:background="@color/startButtonColor"
+                android:onClick="stopButtonOnClick"
                 android:text="@string/stop_text"
                 android:textColor="@color/whiteTextColor" />
 

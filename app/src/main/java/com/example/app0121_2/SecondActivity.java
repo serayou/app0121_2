@@ -41,7 +41,6 @@ public class SecondActivity extends AppCompatActivity {
 
     MyAdapter adapter = new MyAdapter();
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,8 +82,6 @@ public class SecondActivity extends AppCompatActivity {
 
 
     public boolean fillCheck(EditText editText) {
-        Log.d(LOG_TAG, "체크하기");
-
         if (editText.getText().toString().length() != 0) {
             return true;
         } else {
@@ -97,23 +94,16 @@ public class SecondActivity extends AppCompatActivity {
 //        @Override
 //        public void onClick(View v) {
 //            stopScheduler();
-//
 //            editTotalFeed.getText().clear();
 //            editTime.getText().clear();
 //            feed = 0;
 //            duration = 0;
 //            showText(0);
-//           // eatFeeds = 0;
-//
-//
 //            adapter.listViewItemList.clear();
 //            Message msg = handler.obtainMessage();
 //            handler.sendMessage(msg);
-//
-//
-//            Log.i(LOG_TAG, "먹이공급 초기화..");
-//
-//
+
+    //            Log.i(LOG_TAG, "먹이공급 초기화..");
 //        }
 //    };
     private void runScheduler() {
@@ -129,26 +119,22 @@ public class SecondActivity extends AppCompatActivity {
 
         editTotalFeed.getText().clear();
         editTime.getText().clear();
-
-
         showText(0);
-//        adapter.listViewItemList.clear();
 
-
-        adapter.clearItem();
-
+        adapter.listViewItemList.clear();
         Message msg = handler.obtainMessage();
         handler.sendMessage(msg);
 
-        Log.i(LOG_TAG, "리스트뷰 : " + adapter.listViewItemList.size());
+        Log.i(LOG_TAG, "먹이공급 초기화..");
 
     }
 
 
     public void startButtonOnClick(View view) {
-        initScheduler();
-        if ((fillCheck(editTotalFeed) && fillCheck(editTime))) {
 
+        initScheduler();
+
+        if ((fillCheck(editTotalFeed) && fillCheck(editTime))) {
             feed = Integer.parseInt(editTotalFeed.getText().toString());
             duration = Integer.parseInt(editTime.getText().toString());
 
@@ -164,24 +150,15 @@ public class SecondActivity extends AppCompatActivity {
                 Toast.makeText(SecondActivity.this, "끼니시간을 입력해주세요!", Toast.LENGTH_SHORT).show();
             }
         }
-
     }
 
     public void showProgress(int icon, String name, int feed) {
         adapter.addItem(icon, name, feed);
-
-//        Message msg = handler.obtainMessage();
-//        handler.sendMessage(msg);
     }
 
-    //못먹은 동물 표시
     public void showAnimal(int icon, String name) {
         adapter.addItem(icon, name);
-
-//        Message msg = handler.obtainMessage();
-//        handler.sendMessage(msg);
     }
-
 
     public void showText(final int remainFeed) {
         runOnUiThread(new Runnable() {
@@ -194,24 +171,10 @@ public class SecondActivity extends AppCompatActivity {
 
     }
 
-
     final Handler handler = new Handler() {
         public void handleMessage(Message msg) {
             adapter.notifyDataSetChanged();
         }
     };
-
-//    public void notiHandler(){
-//        runOnUiThread(new Runnable() {
-//            @Override
-//            public void run() {
-//
-//                listView.smoothScrollToPosition(adapter.getCount()-1);
-//                adapter.notifyDataSetChanged();
-//            }
-//        });
-//
-//    }
-
 
 }
