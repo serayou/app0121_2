@@ -7,7 +7,6 @@ public class ListviewItem {
     private String name;
     private int feed;
 
-
     public int getType() {
         return type;
     }

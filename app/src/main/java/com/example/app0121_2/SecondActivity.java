@@ -160,6 +160,9 @@ public class SecondActivity extends AppCompatActivity {
         adapter.addItem(icon, name);
     }
 
+
+
+
     public void showText(final int remainFeed) {
         runOnUiThread(new Runnable() {
             @Override
@@ -176,5 +179,6 @@ public class SecondActivity extends AppCompatActivity {
             adapter.notifyDataSetChanged();
         }
     };
+
 
 }

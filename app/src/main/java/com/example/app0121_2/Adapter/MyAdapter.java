@@ -120,6 +120,8 @@ public class MyAdapter extends BaseAdapter {
         return convertView;
     }
 
+
+
     public void addItem(int icon, String name, int feed) {
         ListviewItem item = new ListviewItem();
         item.setType(ITEM_VIEW_TYPE_GREEN);
@@ -127,8 +129,7 @@ public class MyAdapter extends BaseAdapter {
         item.setName(name);
         item.setFeed(feed);
 
-        listViewItemList.add(item);
-        notiHandler();
+        notiHandler(item);
     }
 
     public void addItem(int icon, String name) {
@@ -137,16 +138,22 @@ public class MyAdapter extends BaseAdapter {
         item.setIcon(icon);
         item.setName(name);
 
-        listViewItemList.add(item);
-        notiHandler();
+        notiHandler(item);
     }
 
-    public void notiHandler() {
+
+
+    public void notiHandler(final ListviewItem item) {
         ((SecondActivity) SecondActivity.mContext).runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                ((SecondActivity) SecondActivity.mContext).listView.smoothScrollToPosition(getCount() - 1);
-                notifyDataSetChanged();
+                try {
+                    ((SecondActivity) SecondActivity.mContext).listView.smoothScrollToPosition(getCount() - 1);
+                    listViewItemList.add(item);
+                    notifyDataSetChanged();
+                }catch (java.lang.IllegalStateException e){
+                    Log.e(LOG_TAG,"[error]The content of the adapter has changed but ListView did not receive a notification");
+                }
             }
         });
 
