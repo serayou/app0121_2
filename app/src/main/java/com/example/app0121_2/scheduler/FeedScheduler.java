@@ -45,10 +45,9 @@ public class FeedScheduler {
         tom.saveFeed(0);
         duration = 0;
 
-        //지금까지 먹은양은 초기화 안되고 누적됨,지금까지 먹은 양 eatFeeds
-
-
         Log.i(LOG_TAG, "먹이 공급을 중단합니다...");
+
+        isInterruptOcurred = false;
     }
 
     public void startScheduleToFeed(final int flag) {

@@ -81,14 +81,6 @@ public class SecondActivity extends AppCompatActivity {
         scheduler.setDuration(1000);
     }
 
-    private void runScheduler() {
-        scheduler.startScheduleToFeed(flag);
-    }
-
-    private void stopScheduler() {
-        scheduler.stopSchedule();
-    }
-
 
     public boolean fillCheck(EditText editText) {
         Log.d(LOG_TAG, "체크하기");
@@ -101,7 +93,7 @@ public class SecondActivity extends AppCompatActivity {
     }
 
 
-//    private View.OnClickListener clickListener = new View.OnClickListener() {
+    //    private View.OnClickListener clickListener = new View.OnClickListener() {
 //        @Override
 //        public void onClick(View v) {
 //            stopScheduler();
@@ -124,26 +116,37 @@ public class SecondActivity extends AppCompatActivity {
 //
 //        }
 //    };
+    private void runScheduler() {
+        scheduler.startScheduleToFeed(flag);
+    }
+
+    private void stopScheduler() {
+        scheduler.stopSchedule();
+    }
 
     public void stopButtonOnClick(View view) {
-        Log.i(LOG_TAG, "리스트뷰 : " + adapter.listViewItemList.size());
         stopScheduler();
+
         editTotalFeed.getText().clear();
         editTime.getText().clear();
-        showText(0);
-        //       adapter.listViewItemList.clear();
-        adapter.clearItem();
 
+
+        showText(0);
+//        adapter.listViewItemList.clear();
+
+
+        adapter.clearItem();
 
         Message msg = handler.obtainMessage();
         handler.sendMessage(msg);
 
+        Log.i(LOG_TAG, "리스트뷰 : " + adapter.listViewItemList.size());
 
     }
 
 
     public void startButtonOnClick(View view) {
-
+        initScheduler();
         if ((fillCheck(editTotalFeed) && fillCheck(editTime))) {
 
             feed = Integer.parseInt(editTotalFeed.getText().toString());

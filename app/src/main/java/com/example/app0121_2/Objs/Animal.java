@@ -44,8 +44,8 @@ public abstract class Animal {
                 ((RecyclerActivity)RecyclerActivity.mContext).showProgress(animalIcon, name, eatFeeds);
             }
 
-
             return feed;
+
         } else {
             Log.i(LOG_TAG, name + "가 먹이를 먹지 못하였습니다.");
 
@@ -54,15 +54,12 @@ public abstract class Animal {
             }else if(flag==2){
                 ((RecyclerActivity)RecyclerActivity.mContext).showAnimal(animalIcon, name);
             }
+
             return feed;
         }
     }
 
     public abstract void move();
 
-    public void feedInit(){
-
-        eatFeeds=0;
-    }
 
 }
