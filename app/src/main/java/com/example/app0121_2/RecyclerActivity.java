@@ -126,26 +126,7 @@ public class RecyclerActivity extends AppCompatActivity {
             return false;
         }
     }
-//    private View.OnClickListener clickListener=new View.OnClickListener(){
-//        @Override
-//        public void onClick(View v) {
-//
-//            stopScheduler();
-//
-//            editTotalFeed.getText().clear();
-//            editTime.getText().clear();
-//            feed=0;
-//            duration=0;
-//
-//            list.clear();
-//
-//            showText(0);
-//            Message msg = handler.obtainMessage();
-//            handler.sendMessage(msg);
-//
-//
-//        }
-//    };
+
     public void stopButtonOnClick(View view) {
         stopScheduler();
 

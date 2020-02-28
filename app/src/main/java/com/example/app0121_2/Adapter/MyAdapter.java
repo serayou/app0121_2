@@ -1,25 +1,16 @@
 package com.example.app0121_2.Adapter;
 
 import android.content.Context;
-import android.os.Handler;
-import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.app0121_2.ListviewItem;
-import com.example.app0121_2.Objs.Animal;
 import com.example.app0121_2.R;
-import com.example.app0121_2.RecyclerActivity;
 import com.example.app0121_2.SecondActivity;
 
 import java.util.ArrayList;

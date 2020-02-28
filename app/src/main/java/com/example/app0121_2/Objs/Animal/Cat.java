@@ -1,5 +1,6 @@
-package com.example.app0121_2.Objs;
+package com.example.app0121_2.Objs.Animal;
 
+import com.example.app0121_2.Objs.Animal.Animal;
 import com.example.app0121_2.R;
 
 public class Cat extends Animal {

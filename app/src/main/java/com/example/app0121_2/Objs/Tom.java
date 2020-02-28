@@ -2,6 +2,11 @@ package com.example.app0121_2.Objs;
 
 import android.util.Log;
 
+import com.example.app0121_2.Objs.Animal.Animal;
+import com.example.app0121_2.Objs.Animal.Cat;
+import com.example.app0121_2.Objs.Animal.Sparrow;
+import com.example.app0121_2.Objs.Animal.Turtle;
+
 public class Tom {
 
     private final String LOG_TAG = "Tom";

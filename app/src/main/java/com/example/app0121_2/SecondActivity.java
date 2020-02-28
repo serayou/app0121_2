@@ -2,7 +2,6 @@ package com.example.app0121_2;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,14 +9,12 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.app0121_2.Adapter.MyAdapter;
-import com.example.app0121_2.Objs.Animal;
 import com.example.app0121_2.Objs.Person;
 import com.example.app0121_2.Objs.Tom;
 import com.example.app0121_2.scheduler.FeedScheduler;
@@ -89,23 +86,6 @@ public class SecondActivity extends AppCompatActivity {
         }
     }
 
-
-    //    private View.OnClickListener clickListener = new View.OnClickListener() {
-//        @Override
-//        public void onClick(View v) {
-//            stopScheduler();
-//            editTotalFeed.getText().clear();
-//            editTime.getText().clear();
-//            feed = 0;
-//            duration = 0;
-//            showText(0);
-//            adapter.listViewItemList.clear();
-//            Message msg = handler.obtainMessage();
-//            handler.sendMessage(msg);
-
-    //            Log.i(LOG_TAG, "먹이공급 초기화..");
-//        }
-//    };
     private void runScheduler() {
         scheduler.startScheduleToFeed(flag);
     }

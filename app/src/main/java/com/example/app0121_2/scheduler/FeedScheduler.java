@@ -1,15 +1,9 @@
 package com.example.app0121_2.scheduler;
 
-import android.app.Activity;
-import android.content.Context;
 import android.util.Log;
-import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import com.example.app0121_2.Objs.Animal;
+import com.example.app0121_2.Objs.Animal.Animal;
 import com.example.app0121_2.Objs.Tom;
-import com.example.app0121_2.R;
 import com.example.app0121_2.RecyclerActivity;
 import com.example.app0121_2.SecondActivity;
 
