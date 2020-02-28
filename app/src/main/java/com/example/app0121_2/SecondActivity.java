@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -26,10 +27,11 @@ public class SecondActivity extends AppCompatActivity {
     private TextView textName;
     public TextView textRemain;
 
+
     private EditText editTotalFeed;  //입력 먹이양
     private EditText editTime;       //입력 끼니시간
     public ListView listView;
-
+    private InputMethodManager inputMethodManager;
     private FeedScheduler scheduler;
 
     int feed;
@@ -66,6 +68,7 @@ public class SecondActivity extends AppCompatActivity {
         listView = findViewById(R.id.progressListView);
         textName = findViewById(R.id.secondLayoutName);
         textRemain = findViewById(R.id.remainFeed);
+        inputMethodManager=(InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
         //       ((Button) findViewById(R.id.stop_button)).setOnClickListener(clickListener);
 
     }
@@ -113,6 +116,7 @@ public class SecondActivity extends AppCompatActivity {
     public void startButtonOnClick(View view) {
 
         initScheduler();
+        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(),0);
 
         if ((fillCheck(editTotalFeed) && fillCheck(editTime))) {
             feed = Integer.parseInt(editTotalFeed.getText().toString());

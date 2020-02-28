@@ -9,6 +9,7 @@ import android.os.Message;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -40,7 +41,7 @@ public class RecyclerActivity extends AppCompatActivity {
     private EditText editTotalFeed;  //입력 먹이양
     private EditText editTime;       //입력 끼니시간
     public RecyclerView recyclerView;
-
+    private InputMethodManager inputMethodManager;
     private FeedScheduler scheduler;
 
     int feed;
@@ -104,6 +105,7 @@ public class RecyclerActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.progressRecyclerView);
         textName = findViewById(R.id.secondLayoutName);
         textRemain = findViewById(R.id.remainFeed);
+        inputMethodManager=(InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
 //        ((Button)findViewById(R.id.stop_button)).setOnClickListener(clickListener);
     }
 
@@ -134,6 +136,9 @@ public class RecyclerActivity extends AppCompatActivity {
         editTime.getText().clear();
         showText(0);
 
+ //       editTotalFeed.requestFocus();
+
+
         list.clear();
         Message msg = handler.obtainMessage();
         handler.sendMessage(msg);
@@ -142,7 +147,10 @@ public class RecyclerActivity extends AppCompatActivity {
 
     }
     public void startButtonOnClick(View view) {
+
         initScheduler();
+        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(),0);
+
         if ((fillCheck(editTotalFeed) && fillCheck(editTime))) {
 
             feed = Integer.parseInt(editTotalFeed.getText().toString());

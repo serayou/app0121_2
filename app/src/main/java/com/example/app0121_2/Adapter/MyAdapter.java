@@ -40,6 +40,7 @@ public class MyAdapter extends BaseAdapter {
 
     @Override
     public int getItemViewType(int position) {
+  //      Log.d(LOG_TAG, "[리스트] "+ listViewItemList.get(position).getType());
         return listViewItemList.get(position).getType();
     }
 
@@ -50,6 +51,7 @@ public class MyAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
+
         return listViewItemList.get(position);
     }
 
@@ -112,7 +114,6 @@ public class MyAdapter extends BaseAdapter {
     }
 
 
-
     public void addItem(int icon, String name, int feed) {
         ListviewItem item = new ListviewItem();
         item.setType(ITEM_VIEW_TYPE_GREEN);
@@ -133,7 +134,6 @@ public class MyAdapter extends BaseAdapter {
     }
 
 
-
     public void notiHandler(final ListviewItem item) {
         ((SecondActivity) SecondActivity.mContext).runOnUiThread(new Runnable() {
             @Override
@@ -142,8 +142,8 @@ public class MyAdapter extends BaseAdapter {
                     ((SecondActivity) SecondActivity.mContext).listView.smoothScrollToPosition(getCount() - 1);
                     listViewItemList.add(item);
                     notifyDataSetChanged();
-                }catch (java.lang.IllegalStateException e){
-                    Log.e(LOG_TAG,"[error]The content of the adapter has changed but ListView did not receive a notification");
+                } catch (java.lang.IllegalStateException e) {
+                    Log.e(LOG_TAG, "[error]The content of the adapter has changed but ListView did not receive a notification");
                 }
             }
         });
