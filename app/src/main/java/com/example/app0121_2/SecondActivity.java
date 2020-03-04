@@ -58,7 +58,6 @@ public class SecondActivity extends AppCompatActivity {
 
         listView.setAdapter(adapter);
         flag = 1;
-
     }
 
     private void initLayout() {
@@ -94,22 +93,32 @@ public class SecondActivity extends AppCompatActivity {
     }
 
     private void stopScheduler() {
-        scheduler.stopSchedule();
+        scheduler.stopSchedule(flag);
     }
 
     public void stopButtonOnClick(View view) {
         stopScheduler();
 
-        editTotalFeed.getText().clear();
-        editTime.getText().clear();
-        showText(0);
+    }
+    public void feedSchedulerInit(){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                duration=0;
+                feed=0;
+                editTotalFeed.getText().clear();
+                editTime.getText().clear();
+                showText(0);
 
-        adapter.listViewItemList.clear();
-        Message msg = handler.obtainMessage();
-        handler.sendMessage(msg);
+                adapter.listViewItemList.clear();
 
-        Log.i(LOG_TAG, "먹이공급 초기화..");
+                adapter.notifyDataSetChanged();
+//                Message msg = handler.obtainMessage();
+//                handler.sendMessage(msg);
 
+                Log.i(LOG_TAG, "먹이공급 초기화..");
+            }
+        });
     }
 
 

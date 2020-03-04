@@ -1,5 +1,6 @@
 package com.example.app0121_2.scheduler;
 
+import android.os.Message;
 import android.util.Log;
 
 import com.example.app0121_2.Objs.Animal.Animal;
@@ -7,6 +8,8 @@ import com.example.app0121_2.Objs.Tom;
 import com.example.app0121_2.RecyclerActivity;
 import com.example.app0121_2.SecondActivity;
 
+
+import javax.xml.transform.sax.TransformerHandler;
 
 import static java.lang.Thread.sleep;
 
@@ -17,7 +20,12 @@ public class FeedScheduler {
 
     private Tom tom;
     private int duration = 0;
-    private boolean isInterruptOcurred = false;
+    public static boolean isInterruptOcurred = false;
+    private boolean isScheduling=false;
+
+    public interface MyEventListener{
+        void onEvnet(int flag);
+    }
 
     public void setManager(Tom tom) {
         this.tom = tom;
@@ -33,16 +41,32 @@ public class FeedScheduler {
         this.duration = duration;
     }
 
-    public void stopSchedule() {
-        isInterruptOcurred = true;
 
-        tom.saveFeed(0);
-        duration = 0;
+    public void stopSchedule(int flag) {
+
+        if(isScheduling==true){
+            isInterruptOcurred = true;
+        }else{
+            listener.onEvnet(flag);
+        }
 
         Log.i(LOG_TAG, "먹이 공급을 중단합니다...");
     }
 
+    MyEventListener listener=new MyEventListener() {
+        @Override
+        public void onEvnet(int flag) {
+            if(flag==1) {
+                ((SecondActivity) SecondActivity.mContext).feedSchedulerInit();
+            }else if(flag==2){
+                ((RecyclerActivity) RecyclerActivity.mContext).feedSchedulerInit();
+            }
+
+        }
+    };
+
     public void startScheduleToFeed(final int flag) {
+
 
         new Thread(new Runnable() {
             @Override
@@ -56,6 +80,7 @@ public class FeedScheduler {
 
 
                 while (true && isInterruptOcurred == false) {
+                    isScheduling=true;
                     if (dayFeedCount % Animal.DAY_FEED_MAX_COUNT == 0) {
                         dayCount++;
                         dayFeedCount = 0;
@@ -80,12 +105,13 @@ public class FeedScheduler {
                     } else {
                         remainFeed = tom.getFeed();
                         printResult(remainAnimal, remainFeed);
-                        Log.i(LOG_TAG,"[red]남은 동물 표시");
+                        isScheduling=false;
                         break;
                     }
                 }
 
                 if (isInterruptOcurred) {
+                    listener.onEvnet(flag);
                     isInterruptOcurred = false;
                 }
             }

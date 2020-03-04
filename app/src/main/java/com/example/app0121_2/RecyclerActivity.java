@@ -119,7 +119,7 @@ public class RecyclerActivity extends AppCompatActivity {
     private void runScheduler() {
         scheduler.startScheduleToFeed(flag);
     }
-    private void stopScheduler() { scheduler.stopSchedule(); }
+    private void stopScheduler() { scheduler.stopSchedule(flag); }
 
     public boolean fillCheck(EditText editText) {
         if (editText.getText().toString().length() != 0) {
@@ -132,20 +132,28 @@ public class RecyclerActivity extends AppCompatActivity {
     public void stopButtonOnClick(View view) {
         stopScheduler();
 
-        editTotalFeed.getText().clear();
-        editTime.getText().clear();
-        showText(0);
-
- //       editTotalFeed.requestFocus();
-
-
-        list.clear();
-        Message msg = handler.obtainMessage();
-        handler.sendMessage(msg);
-
-        Log.i(LOG_TAG, "먹이공급 초기화..");
-
     }
+    public void feedSchedulerInit(){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                duration=0;
+                feed=0;
+                editTotalFeed.getText().clear();
+                editTime.getText().clear();
+                showText(0);
+
+                list.clear();
+
+                adapter.notifyDataSetChanged();
+//                Message msg = handler.obtainMessage();
+//                handler.sendMessage(msg);
+
+                Log.i(LOG_TAG, "먹이공급 초기화..");
+            }
+        });
+    }
+
     public void startButtonOnClick(View view) {
 
         initScheduler();
