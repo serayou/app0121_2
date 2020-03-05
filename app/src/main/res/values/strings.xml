@@ -23,4 +23,7 @@
     <string name="ListView_text">ListView Mode </string>
     <string name="RecyclerView_text">RecyclerView Mode </string>
     <string name="mode_text">MODE </string>
+    <string name="animalInfo_feedVolume_text">Feed Volume :</string>
+    <string name="animalInfo_totalFeed_text">Total Feed :</string>
+    <string name="animalInfo_activity_text">Activity :</string>
 </resources>

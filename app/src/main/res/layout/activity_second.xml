@@ -115,11 +115,12 @@
     </LinearLayout>
 
 
-    <LinearLayout
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="7dp"
-        android:orientation="horizontal">
+
+       >
 
 
         <TextView
@@ -127,18 +128,36 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="7dp"
-            android:layout_weight="1"
             android:text="@string/totalfeed_text"
             android:textColor="@color/blackTextColor"
-            android:textSize="18sp" />
+            android:layout_centerVertical="true"
+            android:textSize="18sp"
+            />
 
         <TextView
             android:id="@+id/remainFeed"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/blackTextColor"
-            android:textSize="18sp" />
-    </LinearLayout>
+            android:layout_toRightOf="@id/totalfeed_text"
+            android:textSize="18sp"
+            android:layout_centerVertical="true"
+            />
+
+
+        <ImageButton
+            android:id="@+id/animalInfo_imageButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:srcCompat="@drawable/icon_information"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:scaleType="fitCenter"
+            android:background="#FFFFFF"
+            />
+
+
+    </RelativeLayout>
 
     <ListView
         android:id="@+id/progressListView"

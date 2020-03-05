@@ -20,7 +20,7 @@ public class FeedScheduler {
 
     private Tom tom;
     private int duration = 0;
-    public static boolean isInterruptOcurred = false;
+    public boolean isInterruptOcurred = false;
     private boolean isScheduling=false;
 
     public interface MyEventListener{
@@ -43,7 +43,6 @@ public class FeedScheduler {
 
 
     public void stopSchedule(int flag) {
-
         if(isScheduling==true){
             isInterruptOcurred = true;
         }else{
