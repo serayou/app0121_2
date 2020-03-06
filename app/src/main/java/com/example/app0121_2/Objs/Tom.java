@@ -12,9 +12,9 @@ public class Tom {
     private final String LOG_TAG = "Tom";
 
     private int feed = 0;
-    private Cat cat = new Cat();
-    private Sparrow sparrow = new Sparrow();
-    private Turtle turtle = new Turtle();
+    public Cat cat = new Cat();
+    public Sparrow sparrow = new Sparrow();
+    public Turtle turtle = new Turtle();
 
     public Tom() {
     }

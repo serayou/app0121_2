@@ -19,6 +19,7 @@ public abstract class Animal {
         Log.i(LOG_TAG, name + "가 들어왔습니다.");
     }
 
+
     public void setFeedVolume(int volume) {
         feedVolume = volume;
         Log.i(LOG_TAG, name + "가 먹을 수 있는 먹이 양은 " + feedVolume + " 그램 입니다.");

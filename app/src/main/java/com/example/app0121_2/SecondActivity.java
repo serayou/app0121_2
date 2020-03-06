@@ -11,11 +11,13 @@ import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.app0121_2.Adapter.MyAdapter;
+import com.example.app0121_2.AnimalInfo.AnimalInfoActivity;
 import com.example.app0121_2.Objs.Person;
 import com.example.app0121_2.Objs.Tom;
 import com.example.app0121_2.scheduler.FeedScheduler;
@@ -60,6 +62,31 @@ public class SecondActivity extends AppCompatActivity {
         flag = 1;
     }
 
+    private View.OnClickListener clickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            int id = v.getId();
+
+
+            switch (id) {
+                case R.id.animalInfo_imageButton:
+                    stopScheduler();
+                    goNext();
+
+
+
+
+                    break;
+            }
+
+        }
+    };
+    public void goNext(){
+        Intent animalInfo_Activity = new Intent(this, AnimalInfoActivity.class);
+        startActivity(animalInfo_Activity);
+
+    }
+
     private void initLayout() {
         editTotalFeed = (EditText) findViewById(R.id.feed_edittext);
         editTime = (EditText) findViewById(R.id.time_edittext);
@@ -67,8 +94,8 @@ public class SecondActivity extends AppCompatActivity {
         listView = findViewById(R.id.progressListView);
         textName = findViewById(R.id.secondLayoutName);
         textRemain = findViewById(R.id.remainFeed);
-        inputMethodManager=(InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-        //       ((Button) findViewById(R.id.stop_button)).setOnClickListener(clickListener);
+        inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        ((ImageButton) findViewById(R.id.animalInfo_imageButton)).setOnClickListener(clickListener);
 
     }
 
@@ -100,12 +127,13 @@ public class SecondActivity extends AppCompatActivity {
         stopScheduler();
 
     }
-    public void feedSchedulerInit(){
+
+    public void feedSchedulerInit() {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                duration=0;
-                feed=0;
+                duration = 0;
+                feed = 0;
                 editTotalFeed.getText().clear();
                 editTime.getText().clear();
                 showText(0);
@@ -125,7 +153,7 @@ public class SecondActivity extends AppCompatActivity {
     public void startButtonOnClick(View view) {
 
         initScheduler();
-        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(),0);
+        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
 
         if ((fillCheck(editTotalFeed) && fillCheck(editTime))) {
             feed = Integer.parseInt(editTotalFeed.getText().toString());
@@ -152,8 +180,6 @@ public class SecondActivity extends AppCompatActivity {
     public void showAnimal(int icon, String name) {
         adapter.addItem(icon, name);
     }
-
-
 
 
     public void showText(final int remainFeed) {

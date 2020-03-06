@@ -8,36 +8,29 @@
     android:orientation="vertical">
 
 
-    <TextView
-        android:id="@+id/animal_name"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:gravity="center"
-        android:text="Text"
-        android:textSize="24dp"
-        android:textStyle="bold" />
 
-
-    <LinearLayout
-        android:id="@+id/animalInfo_ImageLayout"
-        android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:background="@color/backgroundColor_info"
-        android:gravity="center">
-
-
-        <ImageView
-            android:id="@+id/animal_image"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            app:srcCompat="@drawable/icon_cat" />
-    </LinearLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="450dp"
         android:background="@color/backgroundColor_info"
         >
+
+        <LinearLayout
+            android:id="@+id/animalInfo_ImageLayout"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:background="@color/backgroundColor_info"
+            android:gravity="center">
+            <ImageView
+                android:id="@+id/animal_image"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                app:srcCompat="@drawable/icon_bird" />
+
+
+        </LinearLayout>
+
 
 
         <TextView
@@ -47,7 +40,8 @@
             android:text="@string/animalInfo_feedVolume_text"
             android:textSize="20dp"
             android:layout_marginLeft="40dp"
-            android:layout_marginBottom="20dp"/>
+            android:layout_marginBottom="20dp"
+            android:layout_below="@id/animalInfo_ImageLayout"/>
 
         <TextView
             android:id="@+id/animalInfo_FeedVolume"
@@ -57,7 +51,8 @@
             android:text="TextView"
             android:textSize="20dp"
             android:layout_marginBottom="20dp"
-            android:layout_marginLeft="5dp"/>
+            android:layout_marginLeft="5dp"
+            android:layout_below="@id/animalInfo_ImageLayout"/>
 
         <TextView
             android:id="@+id/animalInfo_TotalFeed_text"
@@ -103,35 +98,4 @@
     </RelativeLayout>
 
 
-    <LinearLayout
-        android:layout_width="200dp"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        >
-
-
-        <ImageButton
-            android:id="@+id/animalInfo_pre_imageButton"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/btn_previous"
-            android:layout_marginRight="20dp"
-            android:scaleType="fitCenter"
-            android:background="#FFFFFF"/>
-
-        <ImageButton
-            android:id="@+id/animalInfo_next_imageButton"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/btn_next"
-            android:scaleType="fitCenter"
-            android:background="#FFFFFF"
-            />
-
-
-    </LinearLayout>
 </LinearLayout>
