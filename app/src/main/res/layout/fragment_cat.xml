@@ -23,7 +23,7 @@
             android:background="@color/backgroundColor_info"
             android:gravity="center">
             <ImageView
-                android:id="@+id/animal_image"
+                android:id="@+id/cat_image"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
                 app:srcCompat="@drawable/icon_cat" />
@@ -44,7 +44,7 @@
             android:layout_below="@id/animalInfo_ImageLayout"/>
 
         <TextView
-            android:id="@+id/animalInfo_FeedVolume"
+            android:id="@+id/cat_FeedVolume"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/animalInfo_FeedVolume_text"
@@ -65,11 +65,11 @@
             android:layout_marginBottom="20dp"/>
 
         <TextView
-            android:id="@+id/animalInfo_TotalFeed"
+            android:id="@+id/cat_TotalFeed"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/animalInfo_TotalFeed_text"
-            android:layout_below="@id/animalInfo_FeedVolume"
+            android:layout_below="@id/cat_FeedVolume"
             android:text="TextView"
             android:textSize="20dp"
             android:layout_marginBottom="20dp"
@@ -86,11 +86,11 @@
             />
 
         <TextView
-            android:id="@+id/animalInfo_activity"
+            android:id="@+id/cat_activity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/animalInfo_activity_text"
-            android:layout_below="@id/animalInfo_TotalFeed"
+            android:layout_below="@id/cat_TotalFeed"
             android:text="TextView"
             android:textSize="20dp"
             android:layout_marginLeft="5dp"/>

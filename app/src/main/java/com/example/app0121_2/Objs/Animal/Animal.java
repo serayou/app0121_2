@@ -14,7 +14,7 @@ public abstract class Animal {
     public String name = "";
     public int animalIcon = 0;
 
-    protected void setName(String name) {
+    public void setName(String name) {
         this.name = name;
         Log.i(LOG_TAG, name + "가 들어왔습니다.");
     }
@@ -29,7 +29,8 @@ public abstract class Animal {
         animalIcon = icon;
     }
 
-    public int eat(int feed,int flag) {
+
+    public int eat(int feed, int flag) {
 
         if (feed >= feedVolume) {
             Log.i(LOG_TAG, name + "가 먹이를 먹었습니다.");

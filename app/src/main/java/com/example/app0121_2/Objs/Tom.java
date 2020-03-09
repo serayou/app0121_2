@@ -19,6 +19,7 @@ public class Tom {
     public Tom() {
     }
 
+
     public void saveFeed(int feed) {
         this.feed = feed;
         Log.i(LOG_TAG, String.format("Tom이 먹이를 %d 그램 받았습니다.", feed));
