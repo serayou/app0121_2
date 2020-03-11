@@ -3,12 +3,15 @@ package com.example.app0121_2.Objs.Animal;
 import com.example.app0121_2.Objs.Animal.Animal;
 import com.example.app0121_2.R;
 
-public class Cat extends Animal {
+import java.io.Serializable;
+
+public class Cat extends Animal  {
 
     public Cat() {
         setName("고양이");
         setFeedVolume(150);
         setIcon(R.drawable.icon_cat);
+        setActivity("jump, crawl, walk, run");
 
     }
 
@@ -16,6 +19,7 @@ public class Cat extends Animal {
     public void move() {
 
     }
+
 
     public void jump() {
         move();

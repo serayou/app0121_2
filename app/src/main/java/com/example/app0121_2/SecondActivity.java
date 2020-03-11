@@ -18,6 +18,8 @@ import android.widget.Toast;
 
 import com.example.app0121_2.Adapter.MyAdapter;
 import com.example.app0121_2.AnimalInfo.AnimalInfoActivity;
+import com.example.app0121_2.Objs.Animal.Animal;
+import com.example.app0121_2.Objs.Animal.Cat;
 import com.example.app0121_2.Objs.Person;
 import com.example.app0121_2.Objs.Tom;
 import com.example.app0121_2.scheduler.FeedScheduler;
@@ -29,7 +31,6 @@ public class SecondActivity extends AppCompatActivity {
     private TextView textName;
     public TextView textRemain;
 
-
     private EditText editTotalFeed;  //입력 먹이양
     private EditText editTime;       //입력 끼니시간
     public ListView listView;
@@ -40,7 +41,13 @@ public class SecondActivity extends AppCompatActivity {
     int duration;
     public int flag;
 
+    public int catfeedvolume;
+    public int birdfeedvolume;
+    public int turtlefeedvolume;
+
     MyAdapter adapter = new MyAdapter();
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,9 +64,10 @@ public class SecondActivity extends AppCompatActivity {
 
         textId.setText("[" + person.id + "]");
         textName.setText(person.name);
-
         listView.setAdapter(adapter);
         flag = 1;
+
+
     }
 
     private View.OnClickListener clickListener = new View.OnClickListener() {
@@ -67,25 +75,38 @@ public class SecondActivity extends AppCompatActivity {
         public void onClick(View v) {
             int id = v.getId();
 
-
             switch (id) {
                 case R.id.animalInfo_imageButton:
-                    stopScheduler();
+                    showAnimalInfo();
                     goNext();
-
-
-
-
                     break;
             }
 
         }
     };
-    public void goNext(){
+
+    public void goNext() {
         Intent animalInfo_Activity = new Intent(this, AnimalInfoActivity.class);
+        animalInfo_Activity.putExtra("cat", catfeedvolume);
+        animalInfo_Activity.putExtra("bird", birdfeedvolume);
+        animalInfo_Activity.putExtra("turtle", turtlefeedvolume);
         startActivity(animalInfo_Activity);
 
     }
+
+    public void catnowFeeds(int feed) {
+        catfeedvolume=feed;
+
+    }
+    public void birdnowFeeds(int feed) {
+        birdfeedvolume=feed;
+
+    }
+    public void turtlenowFeeds(int feed) {
+        turtlefeedvolume=feed;
+
+    }
+
 
     private void initLayout() {
         editTotalFeed = (EditText) findViewById(R.id.feed_edittext);
@@ -122,6 +143,11 @@ public class SecondActivity extends AppCompatActivity {
     private void stopScheduler() {
         scheduler.stopSchedule(flag);
     }
+
+    private void showAnimalInfo() {
+        scheduler.showAnimalInfo(flag);
+    }
+
 
     public void stopButtonOnClick(View view) {
         stopScheduler();
@@ -175,6 +201,7 @@ public class SecondActivity extends AppCompatActivity {
 
     public void showProgress(int icon, String name, int feed) {
         adapter.addItem(icon, name, feed);
+
     }
 
     public void showAnimal(int icon, String name) {

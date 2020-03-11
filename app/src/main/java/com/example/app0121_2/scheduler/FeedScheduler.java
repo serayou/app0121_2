@@ -52,6 +52,16 @@ public class FeedScheduler {
         Log.i(LOG_TAG, "먹이 공급을 중단합니다...");
     }
 
+    public void showAnimalInfo(int flag) {
+        if(isScheduling==true){
+            isInterruptOcurred = true;
+        }else{
+//            listener.onEvnet(flag);
+        }
+
+        Log.i(LOG_TAG, "동물 프로필 조회합니다..");
+    }
+
     MyEventListener listener=new MyEventListener() {
         @Override
         public void onEvnet(int flag) {

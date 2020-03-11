@@ -7,14 +7,18 @@ import com.example.app0121_2.Objs.Animal.Cat;
 import com.example.app0121_2.Objs.Animal.Sparrow;
 import com.example.app0121_2.Objs.Animal.Turtle;
 
-public class Tom {
+import java.io.Serializable;
+
+public class Tom  {
 
     private final String LOG_TAG = "Tom";
 
-    private int feed = 0;
+    public int feed = 0;
     public Cat cat = new Cat();
     public Sparrow sparrow = new Sparrow();
     public Turtle turtle = new Turtle();
+
+
 
     public Tom() {
     }
@@ -48,7 +52,8 @@ public class Tom {
 
 
     private boolean checkRemainNextFeed(Animal animal,int flag) {
-        int remainFeed =  animal.eat(feed,flag);
+        int remainFeed = animal.eat(feed,flag);
+
         if(feed == remainFeed) {
             return false;
         }

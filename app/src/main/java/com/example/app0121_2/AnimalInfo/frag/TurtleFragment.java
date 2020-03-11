@@ -1,4 +1,4 @@
-package com.example.app0121_2.AnimalInfo;
+package com.example.app0121_2.AnimalInfo.frag;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,15 +14,21 @@ import androidx.fragment.app.Fragment;
 import com.example.app0121_2.Objs.Tom;
 import com.example.app0121_2.R;
 
-public class CatFragment extends Fragment {
+public class TurtleFragment extends Fragment {
 
     private ImageView animalImage;
-    private TextView animalName;
     private TextView feedVolume;
+    private TextView animalActivity;
+
+    public TurtleFragment(){
+
+
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
 
     }
 
@@ -30,18 +36,21 @@ public class CatFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        return inflater.inflate(R.layout.fragment_bird, container, false);
+        return inflater.inflate(R.layout.fragment_turtle, container, false);
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        animalImage = (ImageView)getView().findViewById(R.id.bird_image);
-        feedVolume = (TextView)getView().findViewById(R.id.bird_FeedVolume);
+        animalImage = (ImageView)getView().findViewById(R.id.turtle_image);
+        feedVolume = (TextView)getView().findViewById(R.id.turtle_FeedVolume);
+        animalActivity=(TextView)getView().findViewById(R.id.turtle_activity);
 
-        animalImage.setImageResource(R.drawable.icon_cat);
-        feedVolume.setText("150");
+        animalImage.setImageResource(R.drawable.icon_turtle);
+        feedVolume.setText("250");
+        animalActivity.setText("swim, crawl");
+
 
     }
 
